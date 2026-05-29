@@ -17,8 +17,8 @@ namespace IMua.Common
                 return false;
             }
 
-            List<string> privilegeLevels = this.GetCredentialByLoggedInUser(session.UserName);
-            if(privilegeLevels.Contains(this.RoleID) || session.GroupID == CommonConstants.ADMIN_GROUP)
+            List<string> privilegeLevels = this.GetCredentialByLoggedInUser(session.UserName) ?? new List<string>();
+            if (privilegeLevels.Contains(this.RoleID) || session.GroupID == CommonConstants.ADMIN_GROUP)
             {
                 return true;
             } else

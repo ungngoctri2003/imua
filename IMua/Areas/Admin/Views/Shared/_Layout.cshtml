@@ -5,135 +5,156 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>IMUA Admin - Mỹ Phẩm Online</title>
-    <link rel="stylesheet" href="~/Areas/Admin/assets/vendors/feather/feather.css">
     <link rel="stylesheet" href="~/Areas/Admin/assets/vendors/ti-icons/css/themify-icons.css">
     <link rel="stylesheet" href="~/Areas/Admin/assets/vendors/css/vendor.bundle.base.css">
     <link rel="stylesheet" href="~/Areas/Admin/assets/css/vertical-layout-light/style.css">
     <link rel="shortcut icon" href="~/assets/img/iconlogo.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
           integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
           crossorigin="anonymous" />
-    <link rel="stylesheet" href="~/assets/css/reset.css">
     <link href="~/assets/fonts/material-icon/css/material-design-iconic-font.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/assets/css/admin-tokens.css" rel="stylesheet" />
     <link href="~/Areas/Admin/assets/css/admin.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/assets/css/admin-dashboard.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/assets/css/admin-premium.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/assets/css/admin-shell.css" rel="stylesheet" />
     @RenderSection("cssType", required: false)
     @RenderSection("cssError", required: false)
     @RenderSection("cssMessage", required: false)
 </head>
 
-<body>
+<body class="admin-app">
     <div class="container-scroller">
-        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo mr-5" href="@Url.Action("Index", "TrangChu")"><img src="~/Areas/Admin/assets/images/logo.png" class="mr-2" alt="IMUA Admin" style="margin-left: 4rem; margin-top: 1rem;" /></a>
-                <a class="navbar-brand brand-logo-mini" href="@Url.Action("Index", "TrangChu")"><img src="~/Areas/Admin/assets/images/logo-mini.png" alt="logo" /></a>
+        <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo" href="@Url.Action("Index", "TrangChu")"><img src="~/assets/img/logo.png" alt="" /></a>
             </div>
-            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-                    <span class="icon-menu"></span>
-                </button>
-                <ul class="navbar-nav navbar-nav-right">
+            <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
+                <div class="admin-topbar__left">
+                    <button class="navbar-toggler align-self-center" type="button" data-toggle="minimize" aria-label="Thu gọn menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <p class="admin-topbar__title">IMUA <span>Admin</span></p>
+                </div>
+                <ul class="navbar-nav navbar-nav-right admin-topbar__right ml-auto">
+                    <li class="nav-item d-none d-md-flex align-items-center">
+                        <a class="admin-topbar__shop" href="@Url.Action("Index", "Home", new { area = "" })" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Xem cửa hàng
+                        </a>
+                    </li>
                     <li class="nav-item nav-profile dropdown">
                         @{
                             var session = (IMua.Common.UserLogin)Session[IMua.Common.CommonConstants.USER_SESSION];
                         }
                         @if (session != null)
                         {
-                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                                <img src="~/assets/Images/AnhDaiDien/@session.AnhDaiDien" alt="profile" />
+                            <a class="nav-link dropdown-toggle admin-nav-profile" href="#" data-toggle="dropdown" id="profileDropdown">
+                                <img src="~/assets/Images/AnhDaiDien/@session.AnhDaiDien" alt="profile" class="admin-nav-profile__avatar" />
+                                <span class="admin-nav-profile__name d-none d-md-inline">@session.HoTen</span>
+                                <i class="fas fa-chevron-down d-none d-md-inline" style="font-size:0.65rem;margin-left:0.35rem;color:#5A6B60;"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                                 <a class="dropdown-item" href="@Url.Action("ChangeInfor", "NguoiDungs", new { id = session.UserID})">
-                                    <i class="ti-settings text-primary"></i>
-                                    Thông tin tài khoản
+                                    <i class="fas fa-user-circle"></i> Thông tin tài khoản
                                 </a>
                                 <a class="dropdown-item" href="@Url.Action("ChangePassword", "NguoiDungs")">
-                                    <i class="ti-lock text-primary"></i>
-                                    Đổi mật khẩu
+                                    <i class="fas fa-key"></i> Đổi mật khẩu
                                 </a>
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="@Url.Action("Logout", "NguoiDungs")">
-                                    <i class="ti-power-off text-primary"></i>
-                                    Đăng xuất
+                                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
                                 </a>
                             </div>
                         }
-
                     </li>
                 </ul>
             </div>
         </nav>
         <div class="container-fluid page-body-wrapper">
-            <nav class="sidebar sidebar-offcanvas" id="sidebar">
-                <ul class="nav">
+            <nav class="sidebar sidebar-offcanvas d-flex flex-column" id="sidebar">
+                <a class="admin-sidebar-logo" href="@Url.Action("Index", "TrangChu")">
+                    <img src="~/assets/img/logo.png" alt="IMUA" />
+                    <span class="admin-sidebar-logo__text">
+                        <strong>IMUA</strong>
+                        <small>Quản trị hệ thống</small>
+                    </span>
+                </a>
+                <ul class="nav flex-column flex-grow-1">
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Index", "TrangChu")">
-                            <i class="ti-home menu-icon"></i>
+                            <i class="fas fa-home menu-icon"></i>
                             <span class="menu-title">Trang chủ</span>
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "ThongKe", new { area = "Admin" })">
+                            <i class="fas fa-chart-bar menu-icon"></i>
+                            <span class="menu-title">Thống kê</span>
+                        </a>
+                    </li>
+                    <li class="nav-category">Cửa hàng</li>
+                    <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Index", "DanhMucs")">
-                            <i class="icon-layout menu-icon"></i>
-                            <span class="menu-title">Quản lý danh mục</span>
+                            <i class="fas fa-th-large menu-icon"></i>
+                            <span class="menu-title">Danh mục</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Index", "LoaiSPs")">
-                            <i class="icon-columns menu-icon"></i>
-                            <span class="menu-title">Quản lý loại sản phẩm</span>
+                            <i class="fas fa-tags menu-icon"></i>
+                            <span class="menu-title">Loại sản phẩm</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Index", "SanPhams")">
-                            <i class="icon-bar-graph menu-icon"></i>
-                            <span class="menu-title">Quản lý sản phẩm</span>
+                            <i class="fas fa-box-open menu-icon"></i>
+                            <span class="menu-title">Sản phẩm</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Index", "TinTucs")">
-                            <i class="icon-grid-2 menu-icon"></i>
-                            <span class="menu-title">Quản lý tin tức</span>
+                            <i class="fas fa-newspaper menu-icon"></i>
+                            <span class="menu-title">Tin tức</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Index", "HoaDons")">
-                            <i class="icon-contract menu-icon"></i>
-                            <span class="menu-title">Quản lý hóa đơn</span>
+                            <i class="fas fa-file-invoice menu-icon"></i>
+                            <span class="menu-title">Hóa đơn</span>
                         </a>
                     </li>
+                    <li class="nav-category">Hệ thống</li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-                            <i class="icon-head menu-icon"></i>
-                            <span class="menu-title">Quản lý tài khoản</span>
-                            <i class="menu-arrow" style="margin-left: 10px"></i>
+                            <i class="fas fa-users-cog menu-icon"></i>
+                            <span class="menu-title">Tài khoản & quyền</span>
+                            <i class="fas fa-chevron-down menu-arrow admin-menu-arrow ml-auto"></i>
                         </a>
                         <div class="collapse" id="auth">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item" style="margin-left: -25px"> <a class="nav-link" href="@Url.Action("Index","LoaiTaiKhoans")">Danh sách loại tài khoản</a></li>
-                                <li class="nav-item" style="margin-left: -25px"> <a class="nav-link" href="@Url.Action("Index","NguoiDungs")">Danh sách tài khoản</a></li>
-                                <li class="nav-item" style="margin-left: -25px"> <a class="nav-link" href="@Url.Action("Index","VaiTros")">Danh sách vai trò</a></li>
-                                <li class="nav-item" style="margin-left: -25px"> <a class="nav-link" href="@Url.Action("Index","UyQuyens")">Danh sách uy quyền</a></li>
+                            <ul class="nav flex-column sub-menu admin-sub-menu">
+                                <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","LoaiTaiKhoans")">Loại tài khoản</a></li>
+                                <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","NguoiDungs")">Tài khoản</a></li>
                             </ul>
                         </div>
                     </li>
                 </ul>
+                <div class="admin-sidebar-footer">
+                    <a href="@Url.Action("Index", "Home", new { area = "" })" target="_blank">
+                        <i class="fas fa-store"></i> Quay về website bán hàng
+                    </a>
+                </div>
             </nav>
             <div class="main-panel">
                 <div class="content-wrapper">
                     @RenderBody()
                 </div>
                 <footer class="footer">
-                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">
-                            Copyright © 2026. All rights reserved
-                        </span>
-                        <span class="text-muted float-none float-sm-right d-block mt-1 mt-sm-0 text-center">
-                            Mỹ Phẩm Online IMUA
-                            <i class="ti-heart text-danger ml-1"></i>
-                        </span>
+                    <div class="d-sm-flex justify-content-between align-items-center w-100">
+                        <span class="text-muted">&copy; @DateTime.Now.Year IMUA — Mỹ phẩm online chính hãng</span>
+                        <span class="text-muted">Hệ thống quản trị <i class="fas fa-leaf" style="color:#2E8B57;"></i></span>
                     </div>
                 </footer>
             </div>
@@ -142,26 +163,32 @@
 
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Areas/Admin/assets/js/template.js"></script>
-    <script language="javascript">
+    <script src="~/Areas/Admin/assets/js/admin-ui.js"></script>
+    <script>
         function valid_search() {
             var search = document.getElementById('SearchString');
-            if (search.value == "") {
-                alert("Vui lòng nhập từ khoá tìm kiếm!");
-                search.focus();
-                return false;
+            if (!search || search.value.trim() !== "") return true;
+            alert("Vui lòng nhập từ khóa tìm kiếm!");
+            search.focus();
+            return false;
+        }
+        (function () {
+            var tx = document.getElementsByTagName('textarea');
+            for (var i = 0; i < tx.length; i++) {
+                tx[i].style.height = tx[i].scrollHeight + 'px';
+                tx[i].style.overflowY = 'hidden';
+                tx[i].style.width = '100%';
+                tx[i].style.outline = 'none';
+                tx[i].style.border = '1px solid #DDEAE2';
+                tx[i].style.borderRadius = '8px';
+                tx[i].style.padding = '10px 12px';
+                tx[i].style.fontSize = '0.9rem';
+                tx[i].addEventListener('input', function () {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
             }
-            return true;
-        };
-        const tx = document.getElementsByTagName('textarea');
-        for (let i = 0; i < tx.length; i++) {
-            tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden; width: 100%; outline: none; border: none; font-size: 1.2rem; line-height: 1.5rem');
-            tx[i].addEventListener("input", OnInput, false);
-        }
-
-        function OnInput() {
-            this.style.height = 'auto';
-            this.style.height = (this.scrollHeight) + 'px';
-        }
+        })();
     </script>
     <script src="~/Areas/Admin/assets/vendors/js/vendor.bundle.base.js"></script>
     <script src="~/Areas/Admin/assets/js/plugin/ckfinder/ckfinder.js"></script>

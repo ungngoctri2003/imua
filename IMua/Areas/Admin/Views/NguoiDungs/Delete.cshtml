@@ -1,97 +1,31 @@
 @model IMua.Models.NguoiDung
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Xóa tài khoản";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>NguoiDung</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.UserGroup.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserGroup.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TenDangNhap)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenDangNhap)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MatKhau)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MatKhau)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.HoTen)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HoTen)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AnhDaiDien)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AnhDaiDien)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SoDT)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SoDT)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DiaChi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DiaChi)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TrangThai)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TrangThai)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
+@Html.Partial("_AdminFormCard", null, new ViewDataDictionary { { "FormTitle", "Xác nhận xóa tài khoản" }, { "FormController", "NguoiDungs" } })
+<div class="admin-alert admin-alert--error">
+    Bạn có chắc chắn muốn xóa tài khoản này? Hành động này không thể hoàn tác.
 </div>
+
+<dl class="row">
+    <dt class="col-sm-3">Loại tài khoản</dt>
+    <dd class="col-sm-9">@Html.DisplayFor(model => model.UserGroup.Name)</dd>
+    <dt class="col-sm-3">Tên đăng nhập</dt>
+    <dd class="col-sm-9">@Html.DisplayFor(model => model.TenDangNhap)</dd>
+    <dt class="col-sm-3">Họ tên</dt>
+    <dd class="col-sm-9">@Html.DisplayFor(model => model.HoTen)</dd>
+    <dt class="col-sm-3">Email</dt>
+    <dd class="col-sm-9">@Html.DisplayFor(model => model.Email)</dd>
+    <dt class="col-sm-3">Số điện thoại</dt>
+    <dd class="col-sm-9">@Html.DisplayFor(model => model.SoDT)</dd>
+</dl>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary" style="background-color: var(--color-error, #C45C5C) !important; border-color: var(--color-error, #C45C5C) !important;">Xóa tài khoản</button>
+}
+@Html.Partial("_AdminFormCardEnd", null, new ViewDataDictionary { { "FormController", "NguoiDungs" } })

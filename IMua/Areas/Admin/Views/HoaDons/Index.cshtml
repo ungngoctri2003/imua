@@ -7,27 +7,15 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<div class="col-lg-12 grid-margin stretch-card">
-    <div class="card">
-        <div class="card-body">
-            <div class="table-header">
-                <h4 class="card-title">Danh sách hoá đơn</h4>
-                <br />
-                <br />
-                <div class="header__middle--search">
-                    <div action="" class="header__search--input">
-                        @using (Html.BeginForm("Search", "HoaDons"))
-                        {
-                            <input type="text" placeholder="Tìm kiếm hoá đơn" id="SearchString" name="SearchString" style="right: 2.3rem" />
-                            <button type="submit" class="header__search--icon" style="right: 0" onclick="return valid_search();">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        }
-                    </div>
-                </div>
-            </div>
+@Html.Partial("_AdminPageStart")
+            @Html.Partial("_AdminListToolbar", null, new ViewDataDictionary {
+                { "ListTitle", "Danh sách hoá đơn" },
+                { "ListController", "HoaDons" },
+                { "SearchPlaceholder", "Tìm kiếm hoá đơn" },
+                { "ShowCreate", false }
+            })
             <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-hover">
                     <thead>
                         <tr>
                             <th>Mã hoá đơn</th>
@@ -46,25 +34,20 @@
                                 <td>@item.NguoiDung.HoTen</td>
                                 <td>@string.Format("{0:c0}", item.ThanhTien)</td>
                                 <td>
-                                    <div>
-                                        <a class="btn btn-primary" href="@Url.Action("Details", "HoaDons", new { id = item.MaHD })">
-                                            <i class="ti-eye"></i>
-                                        </a> &nbsp;
-                                        <a class="btn btn-primary delBtnHD" href="" data-id="@item.MaHD">
-                                            <i class="ti-trash"></i>
-                                        </a>
-                                    </div>
+                                    @Html.Partial("_AdminTableActions", null, new ViewDataDictionary {
+                                        { "DetailsUrl", Url.Action("Details", "HoaDons", new { id = item.MaHD }) },
+                                        { "ShowEdit", false },
+                                        { "DeleteCssClass", "delBtnHD" },
+                                        { "DeleteId", item.MaHD }
+                                    })
                                 </td>
                             </tr>
                         }
                     </tbody>
                 </table>
-                <div class="phan-trang">@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))</div>
             </div>
-        </div>
-    </div>
-</div>
-
+            <div class="admin-pagination phan-trang">@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))</div>
+@Html.Partial("_AdminPageEnd")
 @section ajaxDel{
     <script src="~/Areas/Admin/assets/js/delete.js"></script>
 }

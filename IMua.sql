@@ -132,8 +132,7 @@ Alter table [Credential] add  foreign key([RoleID]) references [Role] ([RoleID])
 go
 --------------------------------------------------------------------------------------------------------------------------------------
 Insert into [UserGroup] values ('ADMIN',N'Quản trị viên')
-Insert into [UserGroup] values ('MOD',N'Nhân viên')
-Insert into [UserGroup] values ('MEMBER',N'Khách hàng')
+Insert into [UserGroup] values ('MEMBER',N'Người dùng')
 go
 
 --Role: NguoiDung
@@ -182,31 +181,9 @@ Insert into [Role] values('EDIT_CREDENTIAL', N'Sửa nhóm uỷ quyền')
 Insert into [Role] values('DELETE_CREDENTIAL', N'Xoá nhóm uỷ quyền')
 go
 
---Credential: NguoiDung
-Insert into [Credential] values ('MOD','VIEW_USER')
---Credential: DanhMuc
-Insert into [Credential] values ('MOD','VIEW_DANHMUC')
---Credential: LoaiSP
-Insert into [Credential] values ('MOD','VIEW_LOAISP')
---Credential: SanPham
-Insert into [Credential] values ('MOD','VIEW_SANPHAM')
-Insert into [Credential] values ('MOD','ADD_SANPHAM')
-Insert into [Credential] values ('MOD','EDIT_SANPHAM')
-Insert into [Credential] values ('MOD','DELETE_SANPHAM')
---Credential: HoaDon
-Insert into [Credential] values ('MOD','VIEW_HOADON')
---Credential: TinTuc
-Insert into [Credential] values ('MOD','VIEW_TINTUC')
-Insert into [Credential] values ('MOD','ADD_TINTUC')
-Insert into [Credential] values ('MOD','EDIT_TINTUC')
-Insert into [Credential] values ('MOD','DELETE_TINTUC')
-go
-
-Insert into [NguoiDung] values ('admin', 'e10adc3949ba59abbe56e057f20f883e', N'Admin', 'avatar1.png', '0123456789', N'Việt Nam', 'admin@gmail.com', 1, 'ADMIN')
-Insert into [NguoiDung] values ('levulong', 'e10adc3949ba59abbe56e057f20f883e', N'Lê Vũ Long', 'avatar2.png', '0147852369', N'Thanh Sơn - Phú Thọ', 'levulong@gmail.com', 1, 'MOD')
-Insert into [NguoiDung] values ('nguyenvantien', 'e10adc3949ba59abbe56e057f20f883e', N'Nguyễn Văn Tiến', 'avatar3.png', '0159784632', N'Thanh Hóa', 'nguyenvantien@gmail.com', 1, 'MOD')
-Insert into [NguoiDung] values ('phamanhduong', 'e10adc3949ba59abbe56e057f20f883e', N'Phạm Anh Dương', 'avatar4.png', '0345612987', N'Hòa Đức - Hà Nội', 'phamanhduong@gmail.com', 1, 'MEMBER')
-Insert into [NguoiDung] values ('phamduyhung', 'e10adc3949ba59abbe56e057f20f883e', N'Phạm Duy Hưng', 'avatar5.png', '0951236478', N'Cầu Diễn - Hà Nội', 'phamduyhung@gmail.com', 1, 'MEMBER')
+-- Mat khau mac dinh: 123456 (MD5)
+Insert into [NguoiDung] values ('admin', 'e10adc3949ba59abbe56e057f20f883e', N'Quản trị viên', 'avatar1.png', '0123456789', N'Việt Nam', 'admin@gmail.com', 1, 'ADMIN')
+Insert into [NguoiDung] values ('user', 'e10adc3949ba59abbe56e057f20f883e', N'Người dùng', 'avatar2.png', '0987654321', N'Việt Nam', 'user@gmail.com', 1, 'MEMBER')
 go
 
 Insert into [DanhMuc] values (N'Mỹ Phẩm Trang Điểm', 'dm1.png', 'icon-dm1.png')
@@ -338,6 +315,35 @@ Insert into [TinTuc] values (N'Cách trị sẹo lõm và những sai lầm bạ
 Insert into [TinTuc] values (N'Đi tìm cách trị sẹo lồi hiệu quả, nhanh chóng', N'Cách trị sẹo lồi nhanh chóng hiệu quả luôn là ước muốn của hầu hết người bị sẹo. Bởi sẹo lồi không chỉ khiến bạn đau đớn, gây tổn thương da mà còn khiến bạn mất tự tin trong cuộc sống. Vậy để loại bỏ sẹo lồi tốt nhất bạn hãy cùng theo dõi qua bài viết sau.', N'Trị sẹo bằng cách tiêm thuốc: Bằng cách tiêm trực tiếp chất Corticosteroid vào mô sẹo sẽ giúp phá hủy cấu trúc tổ chức của sẹo, giảm kích thích và giúp sẹo xẹp dần. Thế nhưng việc điều trị thường kéo dài từ 6 – 12 tháng, gây tốn kém và dễ khiến bị teo da tại vùng tiêm, rối loạn kinh nguyệt, mất sắc tố không hồi phục. Phẩu thuật cắt bỏ: Dành cho những vùng sẹo lớn, bác sĩ sẽ giúp bạn cắt bỏ vùng sẹo và ghép da nhằm giảm lực căng trên toàn bộ da được khâu. Nhược điểm của cách trị sẹo lồi công nghệ này là không làm dứt điểm sẹo, gây đau đớn, dễ bị tái phát. Phẩu thuật lạnh: Sử dụng ni tơ lỏng để phá hủy tổ chức của sẹo làm cho sẹo xẹp xuống, giúp bạn loại bỏ sẹo nhanh hơn.', 'tintuc5.png')
 go
 --------------------------------------------------------------------------------------------------------------------------------------
+-- View SanPhamBanChay: bat buoc cho ung dung (HomeController, TrangChuController)
+-- Neu thieu view nay, trang chu se loi: Invalid object name 'dbo.SanPhamBanChay'
+--------------------------------------------------------------------------------------------------------------------------------------
+if object_id(N'dbo.SanPhamBanChay', N'V') is not null
+	drop view dbo.SanPhamBanChay
+go
+
+create view dbo.SanPhamBanChay
+as
+select top 10
+	SanPham.MaSP,
+	SanPham.TenSP,
+	cast(SanPham.AnhDaiDien as nvarchar(100)) as AnhDaiDien,
+	SanPham.Gia,
+	SanPham.KhuyenMai,
+	isnull(sum(ChiTietHoaDon.SoLuong), 0) as Tong
+from SanPham
+left join ChiTietHoaDon on SanPham.MaSP = ChiTietHoaDon.MaSP
+group by
+	SanPham.MaSP,
+	SanPham.TenSP,
+	cast(SanPham.AnhDaiDien as nvarchar(100)),
+	SanPham.Gia,
+	SanPham.KhuyenMai
+order by isnull(sum(ChiTietHoaDon.SoLuong), 0) desc
+go
+--------------------------------------------------------------------------------------------------------------------------------------
+-- Kiem tra du lieu sau khi tao database
+--------------------------------------------------------------------------------------------------------------------------------------
 select * from [NguoiDung]
 select * from [DanhMuc]
 select * from [LoaiSP]
@@ -348,12 +354,5 @@ select * from [ChiTietHoaDon]
 select * from [UserGroup]
 select * from [Role]
 select * from [Credential]
---------------------------------------------------------------------------------------------------------------------------------------
-create view SanPhamBanChay
-as
-select top 10 SanPham.MaSP,TenSP,Cast(AnhDaiDien as nvarchar(100)) as AnhDaiDien,Gia,KhuyenMai,isnull(Sum(ChiTietHoaDon.SoLuong),0) as Tong 
-from SanPham left join ChiTietHoaDon on
-SanPham.MaSP = ChiTietHoaDon.MaSP
-group by SanPham.MaSP,SanPham.TenSP,Cast(AnhDaiDien as nvarchar(100)),Gia,KhuyenMai
-order by isnull(Sum(ChiTietHoaDon.SoLuong),0) desc
+select * from [SanPhamBanChay]
 go

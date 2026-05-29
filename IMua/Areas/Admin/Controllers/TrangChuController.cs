@@ -14,6 +14,10 @@ namespace IMua.Areas.Admin.Controllers
         public ActionResult Index()
         {
             ViewBag.SanPhamBanChay = db.SanPhamBanChays.Take(4);
+            ViewBag.CountSanPham = db.SanPhams.Count();
+            ViewBag.CountHoaDon = db.HoaDons.Count();
+            ViewBag.CountNguoiDung = db.NguoiDungs.Count();
+            ViewBag.CountTinTuc = db.TinTucs.Count();
             return View();
         }
     }

@@ -1,0 +1,30 @@
+/* IMUA design tokens — admin only (không load setting.css toàn site) */
+:root {
+  --color-primary: #2E8B57;
+  --color-primary-dark: #1F6B42;
+  --color-primary-light: #6DB88A;
+  --color-accent: #52B788;
+  --color-bg: #F4FAF6;
+  --color-surface: #FFFFFF;
+  --color-text: #2D2D2D;
+  --color-text-muted: #5A6B60;
+  --color-border: #DDEAE2;
+  --color-footer-bg: #1A3D2A;
+  --color-success: #1B7A43;
+  --color-error: #C45C5C;
+  --font-heading: "Playfair Display", "Be Vietnam Pro", Georgia, serif;
+  --font-body: "Be Vietnam Pro", "Segoe UI", sans-serif;
+  --space-xs: 0.4rem;
+  --space-sm: 0.8rem;
+  --space-md: 1.6rem;
+  --space-lg: 2.4rem;
+  --space-xl: 4rem;
+  --radius-sm: 0.6rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.6rem;
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 3px rgba(45, 45, 45, 0.06);
+  --shadow-md: 0 4px 20px rgba(45, 45, 45, 0.08);
+  --shadow-lg: 0 12px 40px rgba(45, 45, 45, 0.1);
+  --transition: 0.25s ease;
+}

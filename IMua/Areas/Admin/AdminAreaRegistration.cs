@@ -15,9 +15,17 @@ namespace IMua.Areas.Admin
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
+                "Admin_thongke",
+                "Admin/ThongKe",
+                new { controller = "ThongKe", action = "Index" },
+                namespaces: new[] { "IMua.Areas.Admin.Controllers" }
+            );
+
+            context.MapRoute(
                 "Admin_default",
                 "Admin/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { controller = "TrangChu", action = "Index", id = UrlParameter.Optional },
+                namespaces: new[] { "IMua.Areas.Admin.Controllers" }
             );
         }
     }

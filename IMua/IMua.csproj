@@ -171,6 +171,7 @@
     <Compile Include="Areas\Admin\Controllers\NguoiDungsController.cs" />
     <Compile Include="Areas\Admin\Controllers\SanPhamsController.cs" />
     <Compile Include="Areas\Admin\Controllers\TinTucsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ThongKeController.cs" />
     <Compile Include="Areas\Admin\Controllers\TrangChuController.cs" />
     <Compile Include="Areas\Admin\Controllers\UyQuyensController.cs" />
     <Compile Include="Areas\Admin\Controllers\VaiTrosController.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="Models\SanPham.cs" />
     <Compile Include="Models\SanPhamBanChay.cs" />
     <Compile Include="Models\TinTuc.cs" />
+    <Compile Include="Models\ThongKeViewModel.cs" />
     <Compile Include="Models\UserDAO.cs" />
     <Compile Include="Models\UserGroup.cs" />
     <Compile Include="IMuaDataSet.Designer.cs">
@@ -1305,6 +1307,7 @@
     <Content Include="Areas\Admin\assets\vendors\ti-icons\css\themify-icons.css" />
     <Content Include="Areas\Admin\assets\vendors\ti-icons\fonts\themify.svg" />
     <Content Include="assets\css\AddCSS.css" />
+    <Content Include="assets\css\account.css" />
     <Content Include="assets\css\Cart.css" />
     <Content Include="assets\css\Home.css" />
     <Content Include="assets\css\Login.css" />
@@ -1631,6 +1634,7 @@
     <Content Include="Areas\Admin\Views\LoaiSPs\Index.cshtml" />
     <Content Include="Areas\Admin\Views\HoaDons\Details.cshtml" />
     <Content Include="Areas\Admin\Views\HoaDons\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ThongKe\Index.cshtml" />
     <Content Include="Areas\Admin\Views\TrangChu\Index.cshtml" />
     <Content Include="Areas\Admin\Views\DanhMucs\Search.cshtml" />
     <Content Include="Areas\Admin\Views\HoaDons\Search.cshtml" />

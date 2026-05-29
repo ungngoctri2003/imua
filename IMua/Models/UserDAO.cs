@@ -57,7 +57,7 @@ namespace IMua.Models
                 {
                     if (result.MatKhau == passWord)
                     {
-                        if (result.GroupID == CommonConstants.ADMIN_GROUP || result.GroupID == CommonConstants.MOD_GROUP)
+                        if (result.GroupID == CommonConstants.ADMIN_GROUP)
                         {
                             //admin and mod
                             return 2;

@@ -7,27 +7,16 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<div class="col-lg-12 grid-margin stretch-card">
-    <div class="card">
-        <div class="card-body">
-            <div class="table-header" style="height: 40px">
-                <h4 class="card-title">Danh sách tài khoản</h4>
-                <div class="header__middle--search">
-                    <div action="" class="header__search--input">
-                        @using (Html.BeginForm("Search", "NguoiDungs"))
-                        {
-                            <input type="text" placeholder="Tìm kiếm khách hàng" id="SearchString" name="SearchString" style="right: 2.3rem" />
-                            <button type="submit" class="header__search--icon" style="right: 0" onclick="return valid_search();">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        }
-                    </div>
-                </div>
-
-            </div>
-            <div id="search__result" style="text-transform: uppercase;">có <text style="color: red;">@ViewData["Count"]</text> tài khoản phù hợp với từ khoá: <text style="color: red">@ViewBag.CurrentFilter</text></div>
+@Html.Partial("_AdminPageStart")
+            @Html.Partial("_AdminListToolbar", null, new ViewDataDictionary {
+                { "ListTitle", "Danh sách tài khoản" },
+                { "ListController", "NguoiDungs" },
+                { "SearchPlaceholder", "Tìm kiếm khách hàng" },
+                { "ShowCreate", false }
+            })
+            <div id="search__result">Có <text>@ViewData["Count"]</text> tài khoản phù hợp với từ khóa: <text>@ViewBag.CurrentFilter</text></div>
             <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-hover">
                     <thead>
                         <tr>
                             <th>Họ tên</th>
@@ -50,43 +39,41 @@
                                 <td>
                                     @if (item.GroupID.Equals("MEMBER"))
                                     {
-                                        <span>User</span>
+                                        <span>Khách hàng</span>
                                     }
                                     else if (item.GroupID.Equals("ADMIN"))
                                     {
-                                        <span>Admin</span>
+                                        <span>Quản trị</span>
                                     }
                                     else
                                     {
-                                        <span>Mod</span>
+                                        <span>Điều hành</span>
                                     }
                                 </td>
                                 <td>
-                                    <a href="@Url.Action("ChangeStatus","NguoiDungs",new { id = item.MaND })" style="text-decoration: none; color: #2E8B57;">
+                                    <a href="@Url.Action("ChangeStatus","NguoiDungs",new { id = item.MaND })" class="admin-status-link">
                                         @if (item.TrangThai.Equals(false))
                                         {
-                                            <span style="color: dodgerblue;">Disable</span>
+                                            <span class="admin-badge admin-badge--inactive">Ngưng hoạt động</span>
                                         }
                                         else
                                         {
-                                            <span style="color: #2E8B57;">Active</span>
+                                            <span class="admin-badge admin-badge--active">Đang hoạt động</span>
                                         }
                                     </a>
                                     @Html.HiddenFor(model => item.MaND)
                                 </td>
                                 <td>
-                                    <div>
-                                        <a class="btn btn-primary" href="@Url.Action("Details", "NguoiDungs", new { id = item.MaND })">
-                                            <i class="ti-eye"></i>
-                                        </a>
-                                    </div>
+                                    @Html.Partial("_AdminTableActions", null, new ViewDataDictionary {
+                                        { "DetailsUrl", Url.Action("Details", "NguoiDungs", new { id = item.MaND }) },
+                                        { "ShowEdit", false },
+                                        { "ShowDelete", false }
+                                    })
                                 </td>
                             </tr>
                         }
                     </tbody>
                 </table>
             </div>
-            <div class="phan-trang">@Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = ViewBag.CurrentFilter }))</div>
-        </div>
-    </div>
-</div>
+            <div class="admin-pagination phan-trang">@Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = ViewBag.CurrentFilter }))</div>
+@Html.Partial("_AdminPageEnd")

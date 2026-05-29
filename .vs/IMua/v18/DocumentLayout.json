@@ -7,7 +7,7 @@
       "RelativeMoniker": "D:0:0:{F4C9418E-3369-4CF4-B2F4-F0605F2E5690}|IMua\\IMua.csproj|solutionrelative:imua\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F4C9418E-3369-4CF4-B2F4-F0605F2E5690}|IMua\\IMua.csproj|d:\\my project\\imua\\imua\\areas\\admin\\controllers\\hoadonscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F4C9418E-3369-4CF4-B2F4-F0605F2E5690}|IMua\\IMua.csproj|D:\\My Project\\IMUA\\imua\\areas\\admin\\controllers\\hoadonscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F4C9418E-3369-4CF4-B2F4-F0605F2E5690}|IMua\\IMua.csproj|solutionrelative:imua\\areas\\admin\\controllers\\hoadonscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -43,8 +43,7 @@
               "RelativeToolTip": "IMua\\Areas\\Admin\\Controllers\\HoaDonsController.cs",
               "ViewState": "AgIAADYAAAAAAAAAAAAUwAsAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-29T12:58:01.564Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-29T12:58:01.564Z"
             }
           ]
         }
