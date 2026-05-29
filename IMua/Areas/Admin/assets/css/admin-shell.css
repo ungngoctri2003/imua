@@ -5,7 +5,7 @@ body.admin-app {
 }
 
 body.admin-app .container-scroller {
-  --primary: #2E8B57;
+  --primary: #F173AC;
 }
 
 /* ===== Topbar: full width, không khối logo SkyDash ===== */
@@ -80,9 +80,9 @@ body.admin-app .admin-topbar__shop {
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--color-primary);
-  background: rgba(46, 139, 87, 0.08);
+  background: rgba(241, 115, 172, 0.08);
   border-radius: var(--radius-full);
-  border: 1px solid rgba(46, 139, 87, 0.2);
+  border: 1px solid rgba(241, 115, 172, 0.2);
   transition: all var(--transition);
 }
 
@@ -220,14 +220,14 @@ body.admin-app .sidebar .nav .nav-item .nav-link i.menu-icon {
 }
 
 body.admin-app .sidebar .nav .nav-item .nav-link:hover {
-  background: rgba(46, 139, 87, 0.08) !important;
+  background: rgba(241, 115, 172, 0.08) !important;
   color: var(--color-primary-dark) !important;
   box-shadow: none !important;
 }
 
 body.admin-app .sidebar .nav .nav-item.active > .nav-link,
 body.admin-app .sidebar .nav .nav-item .nav-link.active {
-  background: rgba(46, 139, 87, 0.12) !important;
+  background: rgba(241, 115, 172, 0.12) !important;
   color: var(--color-primary-dark) !important;
   box-shadow: inset 3px 0 0 var(--color-primary) !important;
   font-weight: 600;
@@ -241,7 +241,7 @@ body.admin-app .sidebar .nav:not(.sub-menu) > .nav-item.active {
 body.admin-app .sidebar .nav:not(.sub-menu) > .nav-item:hover > .nav-link,
 body.admin-app .sidebar .nav:not(.sub-menu) > .nav-item:hover[aria-expanded="true"],
 body.admin-app .sidebar .nav:not(.sub-menu) > .nav-item > .nav-link[aria-expanded="true"] {
-  background: rgba(46, 139, 87, 0.08) !important;
+  background: rgba(241, 115, 172, 0.08) !important;
   color: var(--color-primary-dark) !important;
   border-radius: 10px !important;
 }
@@ -299,7 +299,7 @@ body.admin-app .sidebar .nav.sub-menu .nav-item::before {
 body.admin-app .sidebar .sub-menu .nav-item.active > .nav-link,
 body.admin-app .sidebar .sub-menu .nav-item .nav-link.active,
 body.admin-app .sidebar .sub-menu .nav-link:hover {
-  background: rgba(46, 139, 87, 0.1) !important;
+  background: rgba(241, 115, 172, 0.1) !important;
   color: var(--color-primary-dark) !important;
   box-shadow: none !important;
   font-weight: 600;
@@ -455,7 +455,7 @@ body.admin-app .table tbody tr {
 }
 
 body.admin-app .table tbody tr:hover {
-  background: rgba(46, 139, 87, 0.05) !important;
+  background: rgba(241, 115, 172, 0.05) !important;
 }
 
 body.admin-app .table tbody td {

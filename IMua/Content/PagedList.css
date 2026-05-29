@@ -90,8 +90,8 @@ div.phan-trang .pagination-container li a {
   z-index: 2;
   color: #ffffff;
   cursor: default;
-  background-color: #2E8B57;
-  border-color: #2E8B57;
+  background-color: #F173AC;
+  border-color: #F173AC;
 }
 
 .pagination > .disabled > span,

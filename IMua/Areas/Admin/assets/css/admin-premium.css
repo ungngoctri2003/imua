@@ -6,8 +6,8 @@ body.admin-app {
 
 /* Ghi đè SkyDash cam */
 body.admin-app .container-scroller {
-  --primary: #2E8B57;
-  --blue: #2E8B57;
+  --primary: #F173AC;
+  --blue: #F173AC;
 }
 
 /* ===== Top bar ===== */
@@ -50,13 +50,13 @@ body.admin-app .navbar .nav-profile .nav-link {
 
 body.admin-app .navbar .nav-profile .nav-link:hover {
   border-color: var(--color-primary);
-  background: rgba(46, 139, 87, 0.06);
+  background: rgba(241, 115, 172, 0.06);
 }
 
 /* ===== Sidebar ===== */
 body.admin-app .sidebar {
   width: 260px !important;
-  background: linear-gradient(180deg, #1A3D2A 0%, #142F22 100%) !important;
+  background: linear-gradient(180deg, #333333 0%, #2B2B2B 100%) !important;
   box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12);
   padding-top: 0 !important;
 }
@@ -109,7 +109,7 @@ body.admin-app .sidebar .nav .nav-item .nav-link {
 body.admin-app .sidebar .nav .nav-item .nav-link:hover,
 body.admin-app .sidebar .nav .nav-item.active > .nav-link,
 body.admin-app .sidebar .nav .nav-item .nav-link.active {
-  background: rgba(82, 183, 136, 0.22) !important;
+  background: rgba(0, 198, 242, 0.22) !important;
   color: #fff !important;
   box-shadow: inset 3px 0 0 var(--color-accent);
 }
@@ -190,7 +190,7 @@ body.admin-app .form-control {
 
 body.admin-app .form-control:focus {
   border-color: var(--color-primary) !important;
-  box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.15) !important;
+  box-shadow: 0 0 0 3px rgba(241, 115, 172, 0.15) !important;
 }
 
 /* ===== Toolbar danh sách ===== */
@@ -242,12 +242,12 @@ body.admin-app .btn-admin-add {
   padding: 0.55rem 1.2rem !important;
   font-weight: 600;
   border-radius: var(--radius-full) !important;
-  box-shadow: 0 2px 8px rgba(46, 139, 87, 0.25);
+  box-shadow: 0 2px 8px rgba(241, 115, 172, 0.25);
 }
 
 body.admin-app .btn-admin-add:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(46, 139, 87, 0.3);
+  box-shadow: 0 4px 12px rgba(241, 115, 172, 0.3);
 }
 
 body.admin-app .btn-outline-primary.btn-icon {

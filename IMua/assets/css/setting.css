@@ -41,20 +41,22 @@ img {
 }
 
 :root {
-  /* Premium palette — xanh lá cây */
-  --color-primary: #2E8B57;
-  --color-primary-dark: #1F6B42;
-  --color-primary-light: #6DB88A;
-  --color-accent: #52B788;
-  --color-bg: #F4FAF6;
+  /* Cocolux-inspired palette */
+  --color-primary: #F173AC;
+  --color-primary-dark: #D9548F;
+  --color-primary-light: #F8B5D4;
+  --color-accent: #00C6F2;
+  --color-bg: #FFFFFF;
   --color-surface: #FFFFFF;
-  --color-text: #2D2D2D;
-  --color-text-muted: #5A6B60;
-  --color-border: #DDEAE2;
-  --color-footer-bg: #1A3D2A;
+  --color-text: #333333;
+  --color-text-muted: #666666;
+  --color-border: #EDEDED;
+  --color-footer-bg: #333333;
   --color-success: #1B7A43;
   --color-error: #C45C5C;
-  --color-hotline: #2E8B57;
+  --color-hotline: #F173AC;
+  --color-primary-rgb: 241, 115, 172;
+  --color-accent-rgb: 0, 198, 242;
 
   /* Legacy aliases */
   --primaryColor: var(--color-primary);
@@ -161,7 +163,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--color-primary-dark);
   border-color: var(--color-primary-dark);
   transform: translateY(-2px);
-  box-shadow: 0 0.6rem 2rem rgba(46, 139, 87, 0.3);
+  box-shadow: 0 0.6rem 2rem rgba(var(--color-primary-rgb), 0.3);
 }
 
 .btn-outline {
@@ -313,7 +315,7 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #F8FCF9;
+  background: #FAFAFA;
   padding: 1.5rem;
   overflow: hidden;
 }

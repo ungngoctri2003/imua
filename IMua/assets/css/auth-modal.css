@@ -203,7 +203,7 @@
 .auth-modal .form-input input:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 0.3rem rgba(46, 139, 87, 0.12);
+  box-shadow: 0 0 0 0.3rem rgba(241, 115, 172, 0.12);
 }
 
 .auth-modal .form-submit {
@@ -227,7 +227,7 @@
 .auth-modal .form-submit:hover:not(:disabled) {
   background: var(--color-primary-dark);
   transform: translateY(-2px);
-  box-shadow: 0 0.6rem 2rem rgba(46, 139, 87, 0.35);
+  box-shadow: 0 0.6rem 2rem rgba(241, 115, 172, 0.35);
 }
 
 .auth-modal .form-submit:disabled {

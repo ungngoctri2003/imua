@@ -21,7 +21,7 @@
 }
 .percent {
     position: relative;
-    background: var(--color-primary, #2E8B57);
+    background: var(--color-primary, #F173AC);
     color: #fff;
     margin-left: 2rem;
     height: 3rem;
@@ -43,7 +43,7 @@
         position: absolute;
         pointer-events: none;
         border-color: rgba(136, 183, 213, 0);
-        border-right-color: var(--color-primary, #2E8B57);
+        border-right-color: var(--color-primary, #F173AC);
         border-width: 1.5rem;
         margin-top: -1.5rem;
     }
@@ -71,12 +71,12 @@
     color: var(--titleColor);
     font-size: 1.5rem;
     font-weight: 700;
-    background-color: var(--color-primary, #2E8B57);
-    border-color: var(--color-primary-dark, #1F6B42);
+    background-color: var(--color-primary, #F173AC);
+    border-color: var(--color-primary-dark, #D9548F);
     padding: 0.95rem 3.3rem;
 }
 
 /*Order success*/
 .container .center-content a:hover {
-    color: var(--color-primary, #2E8B57);
+    color: var(--color-primary, #F173AC);
 }

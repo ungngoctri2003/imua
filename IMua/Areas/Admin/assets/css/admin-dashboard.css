@@ -21,7 +21,7 @@ body.admin-app .admin-dashboard .admin-panel {
   gap: var(--space-lg);
   padding: 2.4rem 2.8rem;
   margin-bottom: var(--space-lg);
-  background: linear-gradient(125deg, #1A3D2A 0%, #1F6B42 45%, #2E8B57 75%, #52B788 100%);
+  background: linear-gradient(125deg, #333333 0%, #D9548F 45%, #F173AC 75%, #00C6F2 100%);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   color: #fff;
@@ -169,7 +169,7 @@ body.admin-app .admin-dashboard .admin-panel {
   width: 4.2rem;
   height: 4.2rem;
   border-radius: var(--radius-md);
-  background: linear-gradient(135deg, rgba(46, 139, 87, 0.15), rgba(82, 183, 136, 0.2));
+  background: linear-gradient(135deg, rgba(241, 115, 172, 0.15), rgba(0, 198, 242, 0.2));
   color: var(--color-primary);
   display: flex;
   align-items: center;
@@ -234,7 +234,7 @@ body.admin-app .admin-dashboard .admin-panel {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(46, 139, 87, 0.1);
+  background: rgba(241, 115, 172, 0.1);
   border-radius: var(--radius-full);
   transition: all var(--transition);
 }
@@ -490,7 +490,7 @@ body.admin-app .admin-dashboard .admin-panel {
 }
 
 .admin-stats-list__badge {
-  background: rgba(46, 139, 87, 0.12);
+  background: rgba(241, 115, 172, 0.12);
   color: var(--color-primary-dark);
   font-weight: 700;
   font-size: 0.85rem;

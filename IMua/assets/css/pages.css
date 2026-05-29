@@ -115,7 +115,7 @@
   gap: 0.8rem;
   margin-bottom: 1.5rem;
   padding: 1.5rem;
-  background: linear-gradient(135deg, rgba(46, 139, 87, 0.06), rgba(82, 183, 136, 0.08));
+  background: linear-gradient(135deg, rgba(241, 115, 172, 0.06), rgba(0, 198, 242, 0.08));
   border-radius: var(--radius-md);
 }
 
@@ -276,7 +276,7 @@
 }
 
 .box__infor:hover {
-  background: rgba(46, 139, 87, 0.03);
+  background: rgba(241, 115, 172, 0.03);
 }
 
 .box__title {
@@ -442,7 +442,7 @@
 }
 
 .phan-trang .pagination > li > a:hover {
-  background: rgba(46, 139, 87, 0.1);
+  background: rgba(241, 115, 172, 0.1);
   border-color: var(--color-primary) !important;
   color: var(--color-primary);
   transform: translateY(-0.2rem);
@@ -453,7 +453,7 @@
   background: var(--color-primary) !important;
   border-color: var(--color-primary) !important;
   color: var(--color-surface) !important;
-  box-shadow: 0 0.4rem 1.2rem rgba(46, 139, 87, 0.35);
+  box-shadow: 0 0.4rem 1.2rem rgba(241, 115, 172, 0.35);
 }
 
 /* ===== RESPONSIVE ===== */
