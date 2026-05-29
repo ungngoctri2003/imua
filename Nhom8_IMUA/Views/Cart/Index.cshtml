@@ -1,0 +1,174 @@
+﻿@model List<Nhom8_IMUA.Models.GioHang>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section cssQTY {
+    <style>
+        .qty {
+            width: 4.5rem;
+            padding: 0.7rem 1rem;
+        }
+    </style>
+}
+
+<div class="cart__detail">
+    <div class="container">
+        <div class="detail__path">
+            <a href="">
+                Trang chủ
+            </a>
+            <span>Giỏ hàng</span>
+        </div>
+        @if (Model != null && Model.Count > 0)
+        {
+            decimal tien = 0;
+            if (Model.Sum(x => (x.Product.Gia - x.Product.Gia * x.Product.KhuyenMai / 100) * x.Quantity) >= 400000 || @Model.Count == 0)
+            {
+                tien = 0;
+            }
+            else
+            {
+                tien = 10000;
+            }
+            <div class="cart__item">
+                <p class="cart__qty">Giỏ hàng có: <span>@Model.Count sản phẩm</span></p>
+                <p class="cart__total">Tổng tiền: <span>@string.Format("{0:c0}", @Model.Sum(x => (x.Product.Gia - x.Product.Gia * x.Product.KhuyenMai / 100) * x.Quantity) + tien)</span></p>
+                <table cellspacing="4" cellpadding="4" class="cart__table">
+                    <thead>
+                        <tr>
+                            <th>Hình ảnh</th>
+                            <th>Sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <a href="">
+                                        <img src="~/assets/Images/SanPham/@item.Product.AnhDaiDien" alt="">
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="cart__link" href="@Url.Action("Index","Product",new { MaSP = item.Product.MaSP })">@item.Product.TenSP</a>
+                                    <div class="product__price">
+                                        <ins>@string.Format("{0:c0}", item.Product.Gia - item.Product.Gia * item.Product.KhuyenMai / 100)</ins>
+                                        <del>@string.Format("{0:c0}", item.Product.Gia)</del>
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="text" name="" data-id="@item.Product.MaSP" value="@item.Quantity" class="qty txtSoLuong">
+                                </td>
+                                <td>
+                                    <p>@string.Format("{0:c0}", (item.Product.Gia - item.Product.Gia * item.Product.KhuyenMai / 100) * item.Quantity)</p>
+                                    <a href="" data-id="@item.Product.MaSP" class="txtDel">Xóa</a>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+                <div class="cart__infor">
+                    <p>Tạm tính: <span>@string.Format("{0:c0}", @Model.Sum(x => (x.Product.Gia - x.Product.Gia * x.Product.KhuyenMai / 100) * x.Quantity))</span></p>
+                </div>
+
+                <div class="cart__infor">
+                    <p>Phí vận chuyển: <span>@string.Format("{0:c0}", tien)</span></p>
+                </div>
+
+                <div class="cart__infor">
+                    <p>Tổng tiền thanh toán: <span>@string.Format("{0:c0}", @Model.Sum(x => (x.Product.Gia - x.Product.Gia * x.Product.KhuyenMai / 100) * x.Quantity) + tien)</span></p>
+                </div>
+                <div class="cart__button">
+                    <div class="ship-code">
+                        <input type="checkbox" name="" id="" disabled checked>
+                        <span>Phương thức thanh toán: NHẬN HÀNG VÀ THANH TOÁN TẠI NHÀ !</span>
+                    </div>
+                    @{
+                        var session = (Nhom8_IMUA.Common.UserLogin)Session[Nhom8_IMUA.Common.CommonConstants.USER_SESSION];
+                    }
+                    @if (session == null)
+                    {
+                        <a href="@Url.Action("Login", "User")">Hoàn tất đơn hàng!</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Order", "Cart")">Hoàn tất đơn hàng!</a>
+                    }
+                </div>
+            </div>
+        }
+        else
+        {
+            <span style="font-size: 1.6rem; font-weight: 700; color: red" class="alert">Không có sản phẩm trong giỏ hàng!</span>
+        }
+    </div>
+</div>
+
+@section scriptUp{
+    <script>
+        $(document).ready(function () {
+            $(".txtSoLuong").off().change(function (e) {
+                e.preventDefault();
+                var sl = $(this).val();
+                if (sl.length == 0) {
+                    alert("Số lượng nhập không được để trống!");
+                }
+                else if (isNaN(sl)) {
+                    alert("Số lượng nhập không được phép chứa ký tự khác số!");
+                }
+                else if (parseInt(sl) < 1) {
+                    alert("Số lượng nhập không được bé hơn 1!");
+                }
+                else {
+                    $.ajax({
+                        url: "/Cart/UpdateCart",
+                        type: "POST",
+                        data: {
+                            id: $(this).data("id"),
+                            quantity: $(this).val()
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            if (data != null) {
+                                window.location.href = "/Cart";
+                            } else {
+                                alert("loi");
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}
+
+@section scriptDel{
+    <script>
+        $(document).ready(function () {
+            $(".txtDel").off().click(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "/Cart/RemoveCart",
+                    type: "POST",
+                    data: {
+                        id: $(this).data("id")
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data != null) {
+                            window.location.href = "/Cart";
+                        } else {
+                            alert("loi");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

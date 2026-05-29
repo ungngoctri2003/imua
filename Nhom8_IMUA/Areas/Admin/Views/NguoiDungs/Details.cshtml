@@ -1,0 +1,82 @@
+﻿@model Nhom8_IMUA.Models.NguoiDung
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h3 class="elements-header">Chi tiết tài khoản: @Html.DisplayFor(model => model.HoTen)</h3>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <tr>
+                    <td>
+                        <label class="elements-title">Mã tài khoản :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.MaND)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="elements-title">Tên đăng nhập :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.TenDangNhap)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="elements-title">Ảnh đại diện :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @{
+                            string AnhDaiDienPath = "~/assets/Images/AnhDaiDien/" + Model.AnhDaiDien;
+                        }
+                        <img src="@Url.Content(AnhDaiDienPath)" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="elements-title">Số điện thoại :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.SoDT)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="elements-title">Email :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.Email)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="elements-title">Loại tài khoản :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.GroupID)
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+        <button class="btn btn-inverse-dark btn-fw" onclick="location.href='@Url.Action("Index", "NguoiDungs")';return false;">Quay lại</button>
+    </div>
+</div>

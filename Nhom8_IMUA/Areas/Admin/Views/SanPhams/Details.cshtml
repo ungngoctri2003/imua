@@ -1,0 +1,105 @@
+﻿@model Nhom8_IMUA.Models.SanPham
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h3 class="elements-header">Chi tiết danh mục: @Html.DisplayFor(model => model.TenSP)</h3>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <tr>
+                    <td>
+                        <label class="elements-title">Mã sản phẩm :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.MaSP)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="elements-title">Ảnh sản phẩm :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @{
+                            string AnhSPPath = "~/assets/Images/SanPham/" + Model.AnhDaiDien;
+                        }
+                        <img src="@Url.Content(AnhSPPath)" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="elements-title">Giá sản phẩm :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.Gia)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="elements-title">Khuyến mãi (%) :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.KhuyenMai)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="elements-title">Mô tả :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+<<<<<<< HEAD
+                        <textarea style="width: 100%; font-size: 1.2rem; line-height: 1.5rem" readonly>@Html.DisplayFor(model => model.MoTa)</textarea>
+=======
+                        <textarea readonly style="width: 100%; font-size: 1.2rem; line-height: 1.5rem">@Html.DisplayFor(model => model.MoTa)</textarea>
+>>>>>>> origin/duong
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="elements-title">Xuất xứ :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.XuatXu)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="elements-title">Trọng lượng :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.TrongLuong)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="elements-title">Thuộc loại sản phẩm :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.LoaiSP.TenLoai)
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <button class="btn btn-inverse-dark btn-fw" onclick="location.href='@Url.Action("Index", "SanPhams")';return false;">Quay lại</button>
+    </div>
+</div>

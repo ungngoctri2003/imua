@@ -1,0 +1,143 @@
+﻿@model Nhom8_IMUA.Models.RegisterModel
+@using BotDetect.Web.Mvc;
+
+@{
+    MvcCaptcha registerCaptcha = new MvcCaptcha("registerCaptcha");
+}
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Đăng ký tài khoản</title>
+    <link rel="shortcut icon" href="~/assets/img/iconlogo.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap"
+          rel="stylesheet">
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="~/assets/fonts/material-icon/css/material-design-iconic-font.min.css">
+    <!-- Captcha -->
+    <link href="@BotDetect.Web.CaptchaUrls.Absolute.LayoutStyleSheetUrl"
+          rel="stylesheet" type="text/css" />
+    <!-- Main css -->
+    <link rel="stylesheet" href="~/assets/css/style.css">
+</head>
+
+<body>
+    <div class="main">
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title">Đăng ký tài khoản</h2>
+                        <div class="form-group">
+                            @Html.ValidationSummary(false, "", new { @class = "text-error" })
+                        </div>
+                        @using (Html.BeginForm("Register", "User", FormMethod.Post, new { @id = "register-form", @class = "register-form", enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                <div class="signup-avatar">
+                                    <img id="output" src="~/assets/Images/AnhDaiDien/default-avatar.png"
+                                         class="avatar img-circle img-thumbnail" alt="avatar">
+                                    <h6>Ảnh đại diện</h6>
+                                    <p>
+                                        <label for="ufile" style="cursor: pointer; position: relative;">Chọn file ảnh</label>
+                                    </p>
+                                    <input type="file" name="ImageFile" id="ufile" style="display: none;" onchange="loadFile(event)" />
+                                </div>
+                            </div>
+                            <div class="wrapper">
+                                <div class="form-group">
+                                    <div class="form-input">
+                                        <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                        @Html.TextBoxFor(model => model.HoTen, new { placeholder = "Họ và tên" })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "form-message" })
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-input">
+                                        <label for="name"><i class="zmdi zmdi-account-circle material-icons-name"></i></label>
+                                        @Html.TextBoxFor(model => model.TenDangNhap, new { placeholder = "Tên đăng nhập" })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.TenDangNhap, "", new { @class = "form-message" })
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-input">
+                                        <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                        @Html.TextBoxFor(model => model.Email, new { placeholder = "Email" })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "form-message" })
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-input">
+                                        <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                                        @Html.PasswordFor(model => model.MatKhau, new { placeholder = "Mật khẩu" })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "form-message" })
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-input">
+                                        <label for="re-pass"><i class="zmdi zmdi-phone"></i></label>
+                                        @Html.TextBoxFor(model => model.SoDT, new { placeholder = "Số điện thoại" })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.SoDT, "", new { @class = "form-message" })
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-input">
+                                        <label for="re-pass"><i class="zmdi zmdi-home"></i></label>
+                                        @Html.TextBoxFor(model => model.DiaChi, new { placeholder = "Địa chỉ" })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "form-message" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.Captcha(registerCaptcha)
+                                    @Html.TextBox("CaptchaCode")
+                                </div>
+                                <div class="form-group form-button">
+                                    <input type="submit" name="signup" id="signup" class="form-submit" value="Đăng ký" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="signup-image">
+                        <figure><img src="~/assets/Images/Form/signup-image.jpg" alt="sing up image"></figure>
+                        <a href="@Url.Action("Login", "User")" class="signup-image-link">Bạn đã có tài khoản?</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    @if (ViewBag.Success != null)
+    {
+        Response.Write("<script>alert('Đăng ký tài khoản thành công')</script>");
+    }
+    <script>
+        var image = document.getElementById('output');
+        var loadFile = function (event) {
+            image.src = URL.createObjectURL(event.target.files[0]);
+            /*localStorage.setItem("imageUrl", JSON.stringify(image.src));*/
+        }
+        //image.src = JSON.parse(localStorage.getItem("imageUrl"));
+
+        var inputElements = document.querySelectorAll('.form-input input');
+        var errorMessage = document.querySelectorAll('.form-message');
+        var err = document.querySelector('.signup-form > .form-group');
+        Array.from(inputElements).forEach(function (inputElement, index) {
+            inputElement.oninput = function () {
+                errorMessage[index].innerText = "";
+                err.style.display = "none";
+            };
+        });
+    </script>
+</body>
+
+</html>

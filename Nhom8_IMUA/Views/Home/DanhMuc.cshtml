@@ -1,0 +1,248 @@
+﻿@model IEnumerable<Nhom8_IMUA.Models.DanhMuc>
+
+<div class="header__bottom">
+    <nav class="nav">
+        <div class="container">
+            <ul class="nav__menu">
+                <li class="nav__item">
+                    <a class="nav__link" ">
+                        <i class="fas fa-bars"></i>
+                        danh mục sản phẩm
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <ul class="nav__dropdown">
+                        @foreach (var item in Model)
+                        {
+                            <li class="nav__item">
+                                <a href="@Url.Action("Index", "Category", new { id = item.MaDM })" class="nav__link">
+                                    <span>@item.TenDM</span>
+                                    @{
+                                        string ImagePath = "~/assets/Images/DanhMuc/" + item.BieuTuong;
+                                    }
+                                    <img src="@Url.Content(ImagePath)" alt="" />
+                                </a>
+                                <ul class="sub__nav">
+                                    <div class="nav__item--category">
+                                    <li class="nav__item">
+                                        <h4>@item.TenDM</h4>
+                                    </li>
+                                    @foreach (var subitem in item.LoaiSPs)
+                                    {
+                                        <li class="nav__item">
+                                            <a href="@Url.Action("ProductType","Home",new { id = subitem.MaLoai })" class="nav__link">@subitem.TenLoai</a>
+                                        </li>
+                                    }
+            </div>
+            <div class="nav__item--img">
+                <a href="@Url.Action("Index", "Category", new { id = item.MaDM })">
+                    @{
+                        string image = "~/assets/Images/DanhMuc/" + item.AnhDM;
+                    }
+                    <img src="@Url.Content(image)" alt="" />
+                </a>
+            </div>
+            </ul>
+            </li>
+        }
+                        </ul>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="@Url.Action("ShoppingGuide", "Home")">
+                                hướng dẫn mua hàng
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="@Url.Action("ListNews", "Home")">
+                                tin nổi bật
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="@Url.Action("ListProductSaleOff", "Home")">
+                                sản phẩm sale off
+                            </a>
+                            <ul class="nav__dropdown">
+                                <div>
+                                <li class="nav__item">
+                                    <div class="nav__item--img">
+                                        <a href="@Url.Action("ListProductSaleOff", "Home")">
+                                            <img src="/assets/img/26.jpg" alt="">
+                                        </a>
+                                    </div>
+                                    <h4 class="nav__item--title">
+                                        <a href="@Url.Action("ListProductSaleOff", "Home")">sản phẩm sale off từ 10% - 40%</a>
+                                    </h4>
+                                    <p class="nav__item--desc">
+                                        Khi đến với IMUA.com.vn bạn sẽ mua được những sản phẩm chất lượng và có cơ hội được sale off đến
+                                        50%
+                                        kèm theo nhiều quà tặng hấp dẫn khác
+                                    </p>
+                                </li>
+                                <li class="nav__item">
+                                    <div>
+                                        <h4>danh sách sản phẩm</h4>
+                                        <!-- <div class="slide">
+                                          <a href="">
+                                            <i class="fas fa-angle-left"></i>
+                                          </a>
+                                          <a href="">
+                                            <i class="fas fa-angle-right"></i>
+                                          </a>
+                                        </div> -->
+                                    </div>
+                                    <div class="item">
+                                        @{ Html.RenderAction("ProductSaleOff", "Home");}
+                                    </div>
+                                </li>
+                </div>
+                </ul>
+                </li>
+                <li class="nav__item">
+                    <a class="nav__link">
+                        kho quà tặng
+                    </a>
+                </li>
+                <li class="nav__item">
+                    <a class="nav__link" href="@Url.Action("Contact", "Home")">
+                        liên hệ
+                    </a>
+                </li>
+                </ul>
+                </div>
+                </nav>
+                <nav class="nav">
+                    <div class="container">
+                        <ul class="nav__menu">
+                            <li class="nav__item">
+                                <a class="nav__link">
+                                    <i class="fas fa-bars"></i>
+                                    danh mục sản phẩm
+                                    <i class="fas fa-chevron-down"></i>
+                                </a>
+                                <ul class="nav__dropdown">
+                                    @foreach (var item in Model)
+                                    {
+                                        <li class="nav__item">
+                                            <a href="@Url.Action("Index", "Category", new { id = item.MaDM })" class="nav__link">
+                                                <span>@item.TenDM</span>
+                                                @{
+                                                    string Path = "~/assets/Images/DanhMuc/" + item.BieuTuong;
+                                                }
+                                                <img src="@Url.Content(Path)" alt="" />
+                                            </a>
+                                            <ul class="sub__nav">
+                                                <div class="nav__item--category">
+                                                <li class="nav__item">
+                                                    <h4>@item.TenDM</h4>
+                                                </li>
+                                                @foreach (var subitem in item.LoaiSPs)
+                                                {
+                                                    <li class="nav__item">
+                                                        <a href="@Url.Action("ProductType","Home",new { id = subitem.MaLoai })" class="nav__link">@subitem.TenLoai</a>
+                                                    </li>
+                                                }
+                        </div>
+                        <div class="nav__item--img">
+                            <a href="@Url.Action("Index", "Category", new { id = item.MaDM })">
+                                @{
+                                    string ImagePath = "~/assets/Images/DanhMuc/" + item.AnhDM;
+                                }
+                                <img src="@Url.Content(ImagePath)" alt="" />
+
+                            </a>
+                        </div>
+                        </ul>
+                        </li>
+                    }
+                                    </ul>
+                                    </li>
+                                    <li class="nav__item">
+                                        <a class="nav__link" href="@Url.Action("ShoppingGuide", "Home")">
+                                            hướng dẫn mua hàng
+                                        </a>
+                                    </li>
+                                    <li class="nav__item">
+                                        <a class="nav__link" href="@Url.Action("ListNews", "Home")">
+                                            tin nổi bật
+                                        </a>
+                                    </li>
+                                    <li class="nav__item">
+                                        <a class="nav__link" href="@Url.Action("ListProductSaleOff", "Home")">
+                                            sản phẩm sale off
+                                        </a>
+                                        <ul class="nav__dropdown">
+                                            <div>
+                                            <li class="nav__item">
+                                                <div class="nav__item--img">
+                                                    <a href="@Url.Action("ListProductSaleOff", "Home")">
+                                                        <img src="~/assets/img/26.jpg" alt="" />
+                                                    </a>
+                                                </div>
+                                                <h4 class="nav__item--title">
+                                                    <a href="@Url.Action("ListProductSaleOff", "Home")">sản phẩm sale off từ 10% - 40%</a>
+                                                </h4>
+                                                <p class="nav__item--desc">
+                                                    Khi đến với IMUA.com.vn bạn sẽ mua được những sản phẩm chất lượng và có cơ hội được sale off đến
+                                                    50%
+                                                    kèm theo nhiều quà tặng hấp dẫn khác
+                                                </p>
+                                            </li>
+                                            <li class="nav__item">
+                                                <div>
+                                                    <h4>danh sách sản phẩm</h4>
+                                                    <!-- <div class="slide">
+                                                      <a href="">
+                                                        <i class="fas fa-angle-left"></i>
+                                                      </a>
+                                                      <a href="">
+                                                        <i class="fas fa-angle-right"></i>
+                                                      </a>
+                                                    </div> -->
+                                                </div>
+                                                <div class="item">
+                                                    @{ Html.RenderAction("ProductSaleOff", "Home");}
+                                                </div>
+                                            </li>
+                                            </div>
+                                        </ul>
+                                    </li>
+                                    <li class="nav__item">
+                                        <a class="nav__link">
+                                            kho quà tặng
+                                        </a>
+                                    </li>
+                                    <li class="nav__item">
+                                        <a class="nav__link" href="@Url.Action("Contact", "Home")">
+                                            liên hệ
+                                        </a>
+                                    </li>
+                                    <li class="nav__item">
+                                        <div>
+                                            <a href="" class="nav__link">
+                                                <i class="fas fa-search"></i>
+                                            </a>
+                                            <div class="search__box">
+                                                @using (Html.BeginForm("Index", "TimKiem"))
+                                                {
+                                                    <input type="text" placeholder="Tìm kiếm sản phẩm..." id="SearchString" name="SearchString" />
+                                                }
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="nav__item">
+                                        <div class="header__middle--cart">
+                                            <a href="@Url.Action("Index","Cart")" class="header__middle--cart--link">
+                                                <span class="cart__icon">
+                                                    <i class="fas fa-shopping-basket"></i>
+                                                </span>
+                                                @{ Html.RenderAction("CartCount", "Home"); }
+                                            </a>
+                                            <!-- <div class="header__middle--cart--noti">
+                                                    <span>Chưa có sản phẩm trong giỏ hàng!</span>
+                                            </div> -->
+                                        </div>
+                                    </li>
+                                    </ul>
+                                    </div>
+                                </nav>
+                                </div>
+

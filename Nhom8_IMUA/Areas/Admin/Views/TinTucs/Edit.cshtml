@@ -1,0 +1,86 @@
+﻿@model Nhom8_IMUA.Models.TinTuc
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var AnhTTPath = "~/assets/Images/TinTuc/" + Model.AnhTinTuc;
+}
+
+@section footer{
+    <script src="~/Areas/Admin/assets/js/replace.js"></script>
+}
+
+@using (Html.BeginForm(Html.BeginForm("Edit", "TinTucs", FormMethod.Post, new { enctype = "multipart/form-data" })))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="col-lg-12 grid-margin stretch-card">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.MaTinTuc)
+        @Html.HiddenFor(model => model.AnhTinTuc)
+        <div class="card">
+            <div class="card-body">
+                <h3 class="elements-header">Sửa tin tức</h3>
+                <br />
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <tr>
+                            <td>
+                                <label class="elements-title">Tiêu đề :</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.EditorFor(model => model.TieuDe, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.TieuDe, "", new { @class = "text-danger" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="elements-title">Tóm tắt :</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.TextAreaFor(model => model.TomTat, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.TomTat, "", new { @class = "text-danger" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="elements-title">Nội dung :</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.TextAreaFor(model => model.NoiDung, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.NoiDung, "", new { @class = "text-danger" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="elements-title">Ảnh tin tức :</label>
+                                <label for="ufile" style="cursor:pointer;" class="modal-label">Chọn ảnh</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img id="output" src="@Url.Content(AnhTTPath)" />
+                                <input name="AnhTinTuc" id="ufile" style="display:none;" type="file" onchange="loadFile(event)" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <input type="submit" value="Lưu" class="btn btn-outline-warning btn-fw" />
+                <button class="btn btn-inverse-dark btn-fw" onclick="location.href='@Url.Action("Index", "TinTucs")';return false;">Hủy</button>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    var loadFile = function (event) {
+        var image = document.getElementById('output');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    }
+</script>

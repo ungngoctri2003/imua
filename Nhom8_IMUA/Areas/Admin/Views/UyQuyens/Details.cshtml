@@ -1,0 +1,48 @@
+﻿@model Nhom8_IMUA.Models.Credential
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h3 class="elements-header">Chi tiết ủy quyền:</h3>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <tr>
+                    <td>
+                        <label class="elements-title">Mã ủy quyền :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.CredentialID)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="elements-title">Tên vai trò :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.Role.Name)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="elements-title">Tên loại tài khoản :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.UserGroup.Name)
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <button class="btn btn-inverse-dark btn-fw" onclick="location.href='@Url.Action("Index", "UyQuyens")';return false;">Quay lại</button>
+    </div>
+</div>

@@ -1,0 +1,75 @@
+﻿@model Nhom8_IMUA.Models.TinTuc
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card" onload="init();">
+    <div class="card-body">
+        <h3 class="elements-header">Chi tiết tin tức</h3>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <tr>
+                    <td>
+                        <label class="elements-title">Mã tin tức :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.MaTinTuc)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="elements-title">Tiêu đề :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.TieuDe)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="elements-title">Tóm tắt :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+<<<<<<< HEAD
+                        <textarea style="width: 100%; font-size: 1.2rem; line-height: 1.5rem" readonly>@Html.Raw(HttpUtility.HtmlDecode(Model.TomTat))</textarea>
+=======
+                        <textarea readonly style="width: 100%; font-size: 1.2rem; line-height: 1.5rem">@Html.Raw(HttpUtility.HtmlDecode(Model.TomTat))</textarea>
+>>>>>>> origin/duong
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="elements-title">Nội dung :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <textarea style="width: 100%; font-size: 1.2rem; line-height: 1.5rem" readonly>@Html.Raw(HttpUtility.HtmlDecode(Model.NoiDung))</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="elements-title">Ảnh tin tức :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @{
+                            string AnhTTPath = "~/assets/Images/TinTuc/" + Model.AnhTinTuc;
+                        }
+                        <img src="@Url.Content(AnhTTPath)" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <button class="btn btn-inverse-dark btn-fw" onclick="location.href='@Url.Action("Index", "TinTucs")';return false;">Quay lại</button>
+    </div>
+</div>

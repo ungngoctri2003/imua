@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Nhom8_IMUA.Models.ChiTietHoaDon>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            <a href="">
+                <img src="~/assets/Images/SanPham/@item.SanPham.AnhDaiDien" alt="">
+            </a>
+        </td>
+        <td>
+            <a class="cart__link" href="">@item.SanPham.TenSP</a>
+            <div class="product__price">
+                <ins>@string.Format("{0:c0}", item.SanPham.Gia - item.SanPham.Gia * item.SanPham.KhuyenMai / 100)</ins>
+                <del>@string.Format("{0:c0}", item.SanPham.Gia)</del>
+            </div>
+        </td>
+        <td>
+            <input type="text" name="" data-id="@item.SanPham.MaSP" value="@item.SoLuong" style="width: 4.5rem; padding: 0.7rem 1rem" class="qty txtSoLuong" disabled>
+        </td>
+        <td>
+            <p>@string.Format("{0:c0}", (item.SanPham.Gia - item.SanPham.Gia * item.SanPham.KhuyenMai / 100) * item.SoLuong)</p>
+        </td>
+    </tr>
+}

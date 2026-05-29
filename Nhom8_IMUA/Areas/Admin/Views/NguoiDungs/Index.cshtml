@@ -1,0 +1,80 @@
+﻿@model PagedList.IPagedList<Nhom8_IMUA.Models.NguoiDung>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <div class="table-header" style="height: 40px">
+                <h4 class="card-title">Danh sách tài khoản</h4>
+                <div class="header__middle--search">
+                    <div action="" class="header__search--input">
+                        @using (Html.BeginForm("Search", "NguoiDungs"))
+                        {
+                            <input type="text" placeholder="Tìm kiếm khách hàng" id="SearchString" name="SearchString" style="right: 2.3rem" />
+                            <button type="submit" class="header__search--icon" style="right: 0" onclick="return valid_search();">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        }
+                    </div>
+                </div>
+                @*<a class="btn btn-primary" href="@Url.Action("Create", "NguoiDungs")">
+                        <i class="ti-plus"></i>
+                    </a>*@
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Họ tên</th>
+                            <th>Số điện thoại</th>
+                            <th>Địa chỉ</th>
+                            <th>Email</th>
+                            <th>Loại tài khoản</th>
+                            <th>Trạng thái</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.HoTen</td>
+                                <td>@item.SoDT</td>
+                                <td>@item.DiaChi</td>
+                                <td>@item.Email</td>
+                                <td>@item.GroupID</td>
+                                <td>
+                                    <a href="@Url.Action("ChangeStatus","NguoiDungs",new { id = item.MaND })" style="text-decoration: none; color: #f27922;">
+                                        @if (item.TrangThai.Equals(false))
+                                        {
+                                            <span style="color: dodgerblue;">Disable</span>
+                                        }
+                                        else
+                                        {
+                                            <span style="color: #f27922;">Active</span>
+                                        }
+                                    </a>
+                                    @Html.HiddenFor(model => item.MaND)
+                                </td>
+                                <td>
+                                    <div>
+                                        <a class="btn btn-primary" href="@Url.Action("Details", "NguoiDungs", new { id = item.MaND })">
+                                            <i class="ti-eye"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="phan-trang">@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))</div>
+        </div>
+    </div>
+</div>

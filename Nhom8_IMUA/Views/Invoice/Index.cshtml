@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Nhom8_IMUA.Models.HoaDon>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="cart__detail">
+    <div class="container">
+        <div class="detail__path">
+            <a href="">
+                Trang chủ
+            </a>
+            <span>Hóa đơn</span>
+        </div>
+        @foreach (var item in Model)
+        {
+            <div class="cart__item">
+                <table cellspacing="4" cellpadding="4" class="cart__table">
+                    <thead>
+                        <tr>
+                            <th>Hình ảnh</th>
+                            <th>Sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ Html.RenderAction("ProductInvoice", "Invoice", new { id = item.MaHD }); }
+                    </tbody>
+                </table>
+                <div class="cart__infor">
+                    <p>Tổng tiền thanh toán: <span>@string.Format("{0:c0}", item.ThanhTien)</span></p>
+                </div>
+                <div class="cart__button">
+                    <div class="ship-code">
+                        <input type="checkbox" name="" id="" disabled checked>
+                        <span>Phương thức thanh toán: NHẬN HÀNG VÀ THANH TOÁN TẠI NHÀ !</span>
+                    </div>
+                    @*<a href="@Url.Action("PrintPDF", "Invoice")">In hóa đơn</a>*@
+                    <a href="@Url.Action("Details", "Invoice", new { id = item.MaHD } )">Chi tiết hóa đơn</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

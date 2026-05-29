@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Nhom8_IMUA.Models.ChiTietHoaDon>
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container__invoice">
+    <div class="container__item">
+        <div class="invoice">
+            <a href="">
+                <img src="~/assets/img/logo.png" alt="">
+            </a>
+            <p>IMUA - Mỹ phẩm online chính hãng</p>
+        </div>
+        <div class="invoice">
+            <div class="invoice__item">
+                <span class="invoice__info">0911 403 114</span>
+                <span class="invoice__icon mb-10">
+                    <i class="fas fa-phone"></i>
+                </span>
+            </div>
+            <div class="invoice__item">
+                <span class="invoice__info">https://imua.com.vn/</span>
+                <span class="invoice__icon">
+                    <i class="fas fa-globe"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="container__item">
+        <div class="invoice">
+            <h3>HÓA ĐƠN BÁN HÀNG</h3>
+        </div>
+    </div>
+    <div class="container__item">
+        <div class="invoice">
+            @foreach (var item in ViewBag.User)
+            {
+                <p class="mb-10">
+                    Tên khách hàng:
+                    <span class="customer__name">
+                        @item.NguoiDung.HoTen
+                    </span>
+                </p>
+                <p class="mb-10">
+                    Điện thoại:
+                    <span class="customer__phone">
+                        @item.NguoiDung.SoDT
+                    </span>
+                </p>
+                <p class="mb-10">
+                    Địa chỉ:
+                    <span class="customer__address">
+                        @item.NguoiDung.DiaChi
+                    </span>
+                </p>
+            }
+        </div>
+    </div>
+    <div class="container__item">
+        <div class="invoice">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="font-weight: 700">STT</th>
+                        <th style="font-weight: 700">Tên sản phẩm</th>
+                        <th style="font-weight: 700">Số lượng</th>
+                        <th style="font-weight: 700">Đơn giá</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ 
+                        int count = 1;
+                    }
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>@count</td>
+                        <td>
+                            <span style="line-height: 1.6rem">@item.SanPham.TenSP</span>
+                        </td>
+                        <td style="text-align: center">@item.SoLuong</td>
+                        <td style="text-align: center">@string.Format("{0:c0}", (item.SanPham.Gia - item.SanPham.Gia * item.SanPham.KhuyenMai / 100) * item.SoLuong)</td>
+                    </tr>
+                        count++;
+                    }
+                    @foreach (var item in ViewBag.User)
+                    {
+                        <tr>
+                            <td colspan="3" style="text-align: right">Tổng: </td>
+                            <td style="text-align: center">@string.Format("{0:c0}", item.ThanhTien)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

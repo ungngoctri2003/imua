@@ -1,0 +1,86 @@
+﻿@model Nhom8_IMUA.Models.LoginModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Đăng nhập</title>
+    <link rel="shortcut icon" href="~/assets/img/iconlogo.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap"
+          rel="stylesheet">
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="~/assets/fonts/material-icon/css/material-design-iconic-font.min.css">
+    <!-- Main css -->
+    <link rel="stylesheet" href="~/assets/css/Login.css">
+</head>
+
+<body>
+
+    <div class="main">
+        <section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                    <div class="signin-image">
+                        <figure><img src="~/assets/Images/Form/signin-image.jpg" alt="sing up image"></figure>
+                        <a href="@Url.Action("Register", "User")" class="signup-image-link">Tạo tài khoản mới</a>
+                    </div>
+
+                    <div class="signin-form">
+                        <h2 class="form-title">Đăng nhập</h2>
+                        @using (Html.BeginForm("Login", "User", FormMethod.Post, new { @class = "register-form", @id = "login-form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                @Html.ValidationSummary(false, "", new { @class = "text-error" })
+                            </div>
+                            <div class="form-group">
+                                <div class="form-input">
+                                    <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                    @Html.TextBoxFor(model => model.TenDangNhap, new { placeholder = "Tên đăng nhập" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.TenDangNhap, "", new { @class = "form-message" })
+                            </div>
+                            <div class="form-group">
+                                <div class="form-input">
+                                    <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
+                                    @Html.PasswordFor(model => model.MatKhau, new { placeholder = "Mật khẩu" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "form-message" })
+                            </div>
+                            <div class="form-group">
+                                <div style="display: flex; align-items: center;">
+                                    <input style="margin: 6px 10px 0 0" type="checkbox" name="agree-term" id="agree-term" class="agree-term" onclick="check()" />
+                                    <label for="show-password" class="label-agree-term">Hiển thị mật khẩu</label>
+                                </div>
+                            </div>
+                            <div class="form-group form-button">
+                                <input type="submit" name="signin" id="signin" class="form-submit" value="Đăng nhập" />
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script>
+        function check() {
+            var cbElm = document.querySelector("#agree-term");
+            var pwElm = document.querySelector("#MatKhau");
+            if (cbElm.checked) {
+                pwElm.setAttribute('type', 'text');
+            } else {
+                pwElm.setAttribute('type', 'password');
+            }
+        }
+    </script>
+</body>
+
+</html>

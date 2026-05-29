@@ -1,0 +1,195 @@
+﻿<div class="banner">
+    <div class="container">
+        <div class="banner__img">
+            <a href="">
+                <img src="~/assets/img/mua-xuan-2020-0.jpg" alt="">
+            </a>
+        </div>
+        <div class="banner__service">
+            <div class="service__item">
+                <img src="~/assets/img/ho-tro-247--1.png" alt="">
+                <p>
+                    <strong>Hỗ trợ 24/7</strong>
+                    0911403114
+                </p>
+            </div>
+            <div class="service__item">
+                <img src="~/assets/img/thong-tin--1.png" alt="">
+                <p>
+                    <strong>Thông tin</strong>
+                    Bảo mật tuyệt đối
+                </p>
+            </div>
+            <div class="service__item">
+                <img src="~/assets/img/qua-tang--1.png" alt="">
+                <p>
+                    <strong>Quà tặng</strong>
+                    Mua là có quà
+                </p>
+            </div>
+            <div class="service__item">
+                <img src="~/assets/img/hoan-tra-tien--1.png" alt="">
+                <p>
+                    <strong>Hoàn trả tiền</strong>
+                    Trong 7 ngày
+                </p>
+            </div>
+            <div class="service__item">
+                <img src="~/assets/img/thanh-toan--1.png" alt="">
+                <p>
+                    <strong>Thanh toán</strong>
+                    Khi nhận hàng
+                </p>
+            </div>
+            <div class="service__item">
+                <img src="~/assets/img/giao-hang--1.png" alt="">
+                <p>
+                    <strong>Giao hàng</strong>
+                    Tận nơi toàn quốc
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="best__seller">
+    <div class="title">
+        <h4>sản phẩm bán chạy</h4>
+    </div>
+    <div class="container">
+        @foreach (var item in ViewBag.SanPhamBanChay)
+        {
+            <div class="product">
+                <div class="product__thumb">
+                    <a href="@Url.Action("Index","Product",new { MaSP = item.MaSP })" class="product__img">
+                        <img src="~/assets/Images/SanPham/@item.AnhDaiDien" alt="" />
+                    </a>
+                    <!-- <a href="" class="product__quickview">xem nhanh</a> -->
+                    <div class="product__add--cart">
+                        <a href="" class="ajax-to-cart" data-id="@item.MaSP">
+                            <i class="fas fa-shopping-basket"></i> Thêm giỏ hàng
+                        </a>
+                    </div>
+                </div>
+                <div class="product__info">
+                    <h3 class="product__title">
+                        <a href="@Url.Action("Index","Product",new { MaSP = item.MaSP })">
+                            @item.TenSP
+                        </a>
+                    </h3>
+                    <div class="product__price">
+                        @if (item.KhuyenMai == 0)
+                        {
+                            <ins class="product__price--new">@string.Format("{0:c0}", item.Gia)</ins>
+                        }
+                        else
+                        {
+                            <ins class="product__price--new">@string.Format("{0:c0}", item.Gia - item.Gia * item.KhuyenMai / 100)</ins>
+                            <del class="product__price--old">@string.Format("{0:c0}", item.Gia)</del>
+                        }
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+
+@foreach (var item in ViewBag.DanhMuc)
+{
+    <div class="category">
+        <div class="category__nav">
+            <a href="@Url.Action("Index", "Category",new { id = item.MaDM })">
+                <h2>@item.TenDM</h2>
+            </a>
+            <div class="navbar">
+                <ul>
+                    @foreach (var subitem in item.LoaiSPs)
+                    {
+                        <li><a href="@Url.Action("ProductType", "Home",new { id = subitem.MaLoai })" class="btnItem">@subitem.TenLoai</a></li>
+                    }
+                </ul>
+            </div>
+            <a href="@Url.Action("Index", "Category",new { id = item.MaDM })" class="category__more">Xem thêm</a>
+        </div>
+        <div class="category__content">
+            <div class="container">
+                <div class="content__left">
+                    <div class="content__banner">
+                        <a href="@Url.Action("Index", "Category",new { id = item.MaDM })">
+                            @if (item.MaDM == 1)
+                            {
+                                <img src="~/assets/img/my-pham-trang-diem-menu-left.jpg" alt="">
+                            }
+                            else if (item.MaDM == 2)
+                            {
+                                <img src="~/assets/img/ho-tro-dieu-tri-menu-left.jpg" alt="">
+                            }
+                            else if (item.MaDM == 3)
+                            {
+                                <img src="~/assets/img/cham-soc-da-mat-menu-left.jpg" alt="">
+                            }
+                            else
+                            {
+                                <img src="~/assets/img/cham-soc-toan-than-menu-left.jpg" alt="">
+                            }
+                        </a>
+                    </div>
+                </div>
+
+                @{ Html.RenderAction("Product", "Home", new { MaDM = @item.MaDM });}
+            </div>
+        </div>
+    </div>
+}
+
+<div class="banner">
+    <div class="container">
+        <div class="banner__img">
+            <a href="#">
+                <img src="~/assets/img/100-hai-long-3.jpg" alt="">
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="news">
+    <div class="title">
+        <h4>Tin nổi bật</h4>
+        <!-- <div class="slide">
+          <a href="" class="prev" onclick="plusSlides(-1)">
+            <i class="fas fa-angle-left"></i>
+          </a>
+          <a href="" class="next" onclick="plusSlides(1)">
+            <i class="fas fa-angle-right"></i>
+          </a>
+        </div> -->
+    </div>
+    <div class="container">
+        @foreach (var item in ViewBag.TinTuc)
+        {
+            <div class="product">
+                <div class="product__thumb">
+                    <a href="@Url.Action("NewsDetail", "Home", new { id = item.MaTinTuc })" class="product__img">
+                        <img src="~/assets/Images/TinTuc/@item.AnhTinTuc" alt="" />
+                    </a>
+                </div>
+                <div class="product__info">
+                    <h3 class="product__title">
+                        <a href="@Url.Action("NewsDetail", "Home", new { id = item.MaTinTuc })">@item.TieuDe</a>
+                    </h3>
+                    <div class="product__subtitle">
+                        <p>
+                            @item.TomTat
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+
+

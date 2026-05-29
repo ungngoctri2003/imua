@@ -1,0 +1,77 @@
+﻿@model PagedList.IPagedList<Nhom8_IMUA.Models.SanPham>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <div class="table-header">
+                <h4 class="card-title">Danh sách sản phẩm</h4>
+                <div class="header__middle--search">
+                    <div action="" class="header__search--input">
+                        @using (Html.BeginForm("Search", "SanPhams"))
+                        {
+                            <input type="text" placeholder="Tìm kiếm sản phẩm" id="SearchString" name="SearchString" />
+                            <button type="submit" class="header__search--icon" onclick="return valid_search();">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        }
+                    </div>
+                </div>
+                <a class="btn btn-primary" href="@Url.Action("Create", "SanPhams")">
+                    <i class="ti-plus"></i>
+                </a>
+            </div>
+            <div id="search__result" style="text-transform: uppercase">có <text style="color: red;">@ViewData["Count"]</text> sản phẩm phù hợp với từ khoá: <text style="color: red">@ViewBag.CurrentFilter</text></div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Tên sản phẩm</th>
+                            <th>Giá</th>
+                            <th>Khuyến mãi (%)</th>
+                            <th>Xuất xứ</th>
+                            <th>Trọng lượng</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.TenSP</td>
+                                <td>@string.Format("{0:c0}", item.Gia)</td>
+                                <td>@item.KhuyenMai</td>
+                                <td>@item.XuatXu</td>
+                                <td>@item.TrongLuong</td>
+                                <td>
+                                    <div>
+                                        <a class="btn btn-primary" href="@Url.Action("Details", "SanPhams", new { id = item.MaSP })">
+                                            <i class="ti-eye"></i>
+                                        </a> &nbsp;
+                                        <a class="btn btn-primary" href="@Url.Action("Edit", "SanPhams", new { id = item.MaSP })">
+                                            <i class="ti-pencil-alt"></i>
+                                        </a> &nbsp;
+                                        <a class="btn btn-primary delBtnSP" href="" data-id="@item.MaSP">
+                                            <i class="ti-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="phan-trang">@Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = ViewBag.CurrentFilter }))</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ajaxDel{
+    <script src="~/Areas/Admin/assets/js/delete.js"></script>
+}

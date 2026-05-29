@@ -1,0 +1,175 @@
+﻿/* Cart */
+.cart__detail {
+    background-color: var(--bgColor);
+    padding-top: 2rem;
+}
+
+    .cart__detail .container {
+        display: flex;
+        flex-direction: column;
+        max-width: 120rem;
+    }
+
+.cart__item {
+    display: flex;
+    flex-direction: column;
+}
+
+.cart__qty,
+.cart__total {
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+    .cart__qty span {
+        font-weight: 700;
+    }
+
+    .cart__total span {
+        font-weight: 700;
+        color: red;
+    }
+
+table,
+th,
+td {
+    border: 0.1rem solid #e3eaee;
+    vertical-align: middle;
+}
+
+th,
+td {
+    padding: 0.5rem;
+}
+
+.cart__table {
+    background-color: var(--titleColor);
+    width: 100%;
+}
+
+    .cart__table thead tr th {
+        text-align: left;
+        padding: 0.5rem;
+        font-size: 1.4rem;
+        font-weight: 700;
+    }
+
+        .cart__table thead tr th:first-child {
+            width: 9rem;
+        }
+
+        .cart__table thead tr th:nth-child(3) {
+            width: 8rem;
+        }
+
+        .cart__table thead tr th:last-child {
+            width: 13rem;
+        }
+
+    .cart__table tbody tr td {
+        text-align: center;
+    }
+
+        .cart__table tbody tr td:nth-child(2) {
+            text-align: left;
+        }
+
+        .cart__table tbody tr td a img {
+            width: 7.9rem;
+            height: 9.5rem;
+            max-width: 100%;
+            vertical-align: middle;
+        }
+
+.cart__link {
+    color: var(--textColor);
+    font-size: 1.4rem;
+    font-weight: 700;
+    display: inline-block;
+    margin-bottom: 0.9rem;
+}
+
+    .cart__link:hover {
+        color: var(--primaryColor);
+    }
+
+.cart__table tbody tr td:nth-child(2) .product__price {
+    justify-content: flex-start;
+}
+
+    .cart__table tbody tr td:nth-child(2) .product__price ins {
+        margin-left: 0;
+    }
+
+.qty {
+    width: 4rem;
+    text-align: center;
+    outline: none;
+    border: 0.1rem solid black;
+    padding: 0.4rem 1rem;
+}
+
+.cart__table tbody tr td:last-child p {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--textColor);
+}
+
+.cart__table tbody tr td:last-child a {
+    font-style: italic;
+    font-size: 1.2rem;
+    color: red;
+    margin-top: 0.5rem;
+    display: inline-block;
+}
+
+.cart__infor {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #f3f3f3;
+    border: 0.1rem solid #e0e0e0;
+    height: 3.3rem;
+    vertical-align: middle;
+    padding: 0.9rem 0.5rem 0 0;
+}
+
+    .cart__infor p {
+        font-size: 1.4rem;
+    }
+
+        .cart__infor p span {
+            padding-left: 3rem;
+            color: red;
+            font-weight: 700;
+        }
+
+    .cart__infor:last-child {
+        margin-bottom: 5.8rem;
+    }
+.cart__button {
+    display: flex;
+    justify-content: space-between;
+    margin: 3rem 0;
+    align-items: center;
+}
+
+.ship-code {
+    display: flex;
+}
+
+    .ship-code span {
+        font-size: 1.4rem;
+        color: red;
+        font-weight: 700;
+        margin-left: 1rem;
+        display: inline-block;
+    }
+
+.cart__button a {
+    color: var(--titleColor);
+    font-size: 1.5rem;
+    font-weight: 700;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    padding: 0.95rem 3.3rem;
+}

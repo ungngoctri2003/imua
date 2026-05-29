@@ -1,0 +1,109 @@
+﻿@model PagedList.IPagedList<Nhom8_IMUA.Models.SanPham>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "ListProductSaleOff";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+<div class="banner">
+    <div class="container">
+        <div class="banner__img">
+            <a href="">
+                <img src="~/assets/img/-29.jpg" alt="">
+            </a>
+        </div>
+        <div class="banner__service">
+            <div class="service__item">
+                <img src="~/assets/img/ho-tro-247--1.png" alt="">
+                <p>
+                    <strong>Hỗ trợ 24/7</strong>
+                    0911403114
+                </p>
+            </div>
+            <div class="service__item">
+                <img src="~/assets/img/thong-tin--1.png" alt="">
+                <p>
+                    <strong>Thông tin</strong>
+                    Bảo mật tuyệt đối
+                </p>
+            </div>
+            <div class="service__item">
+                <img src="~/assets/img/qua-tang--1.png" alt="">
+                <p>
+                    <strong>Quà tặng</strong>
+                    Mua là có quà
+                </p>
+            </div>
+            <div class="service__item">
+                <img src="~/assets/img/hoan-tra-tien--1.png" alt="">
+                <p>
+                    <strong>Hoàn trả tiền</strong>
+                    Trong 7 ngày
+                </p>
+            </div>
+            <div class="service__item">
+                <img src="~/assets/img/thanh-toan--1.png" alt="">
+                <p>
+                    <strong>Thanh toán</strong>
+                    Khi nhận hàng
+                </p>
+            </div>
+            <div class="service__item">
+                <img src="~/assets/img/giao-hang--1.png" alt="">
+                <p>
+                    <strong>Giao hàng</strong>
+                    Tận nơi toàn quốc
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="widget">
+    <div class="container">
+        @{ Html.RenderAction("Menu", "Category"); }
+        <div class="widget__content">
+            <div>
+                <div class="widget__category" id="loaisp">
+                    <div class="title">
+                        <span><i class="fas fa-th"></i></span>
+                        <h4>sale off</h4>
+                    </div>
+                    <div class="wrapper">
+                        <div class="wrapper__item">
+                            @foreach (var product in Model)
+                            {
+                                <div class="product">
+                                    <div class="product__thumb">
+                                        <a href="@Url.Action("Index","Product",new { MaSP = product.MaSP })" class="product__img">
+                                            <img src="~/assets/Images/SanPham/@product.AnhDaiDien" alt="" />
+                                        </a>
+                                        <!-- <a href="" class="product__quickview">xem nhanh</a> -->
+                                        <div class="product__add--cart">
+                                            <a href="" class="ajax-to-cart" data-id="@product.MaSP">
+                                                <i class="fas fa-shopping-basket"></i> Thêm giỏ hàng
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="product__info">
+                                        <h3 class="product__title">
+                                            <a href="@Url.Action("Index","Product",new { MaSP = product.MaSP })">@product.TenSP</a>
+                                        </h3>
+                                        <div class="product__price">
+                                            <ins class="product__price--new">@string.Format("{0:c0}", product.Gia - product.Gia * product.KhuyenMai / 100)</ins>
+                                            <del class="product__price--old">@string.Format("{0:c0}", product.Gia)</del>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="phan-trang">@Html.PagedListPager(Model, page => Url.Action("ListProductSaleOff", new { page }))</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

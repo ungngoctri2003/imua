@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<Nhom8_IMUA.Models.DanhMuc>
+
+<div class="banner">
+    <div class="container">
+        <div class="banner__img">
+            <a href="">
+                <img src="~/assets/img/-29.jpg" alt="">
+            </a>
+        </div>
+        <div class="banner__service">
+            <div class="service__item">
+                <img src="~/assets/img/ho-tro-247--1.png" alt="">
+                <p>
+                    <strong>Hỗ trợ 24/7</strong>
+                    0911403114
+                </p>
+            </div>
+            <div class="service__item">
+                <img src="~/assets/img/thong-tin--1.png" alt="">
+                <p>
+                    <strong>Thông tin</strong>
+                    Bảo mật tuyệt đối
+                </p>
+            </div>
+            <div class="service__item">
+                <img src="~/assets/img/qua-tang--1.png" alt="">
+                <p>
+                    <strong>Quà tặng</strong>
+                    Mua là có quà
+                </p>
+            </div>
+            <div class="service__item">
+                <img src="~/assets/img/hoan-tra-tien--1.png" alt="">
+                <p>
+                    <strong>Hoàn trả tiền</strong>
+                    Trong 7 ngày
+                </p>
+            </div>
+            <div class="service__item">
+                <img src="~/assets/img/thanh-toan--1.png" alt="">
+                <p>
+                    <strong>Thanh toán</strong>
+                    Khi nhận hàng
+                </p>
+            </div>
+            <div class="service__item">
+                <img src="~/assets/img/giao-hang--1.png" alt="">
+                <p>
+                    <strong>Giao hàng</strong>
+                    Tận nơi toàn quốc
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="widget">
+    <div class="container">
+        @{ Html.RenderAction("Menu", "Category"); }
+        <div class="widget__content" id="danhmuc">
+            @foreach (var item in Model)
+            {
+                <div>
+                    @foreach (var subitem in ViewBag.LoaiSP)
+                    {
+                        <div class="widget__category">
+                            <div class="title">
+                                <span><i class="fas fa-th"></i></span>
+                                <a href="@Url.Action("ProductType","Home",new { id = subitem.MaLoai })" class="title__link">@subitem.TenLoai</a>
+                            </div>
+                            <div class="wrapper">
+                                <div class="wrapper__item">
+                                    @{ Html.RenderAction("Product", "Category", new { id = subitem.MaLoai });}
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

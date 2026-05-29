@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Nhom8_IMUA.Models.TinTuc>
+
+@{
+    ViewBag.Title = "NewsDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="widget" style="padding-top: 2rem;">
+    <div class="container">
+        @{ Html.RenderAction("Menu", "Category"); }
+        <div class="widget__content">
+            <div class="widget__category">
+                <div class="title">
+                    <span><i class="fas fa-th"></i></span>
+                    <h4>Tin tức</h4>
+                </div>
+                <div class="wrapper" style="position: relative;">
+                    <div class="news__box">
+                        @foreach (var item in Model)
+                        {
+                            <h1 style="font-size: 1.8rem; font-weight: 700; color: red; margin: 1rem 0 1rem">@item.TieuDe</h1>
+                            <h2 style="font-size: 1.4rem; color: #333333; margin: 2rem 0 1rem; line-height: 1.6; font-weight: 700; color: #008000 ">@Html.Raw(HttpUtility.HtmlDecode(item.TomTat))</h2>
+                            <p style="font-size: 1.4rem; color: #333333; line-height: 1.8; margin-bottom: 1rem; text-align: justify">@Html.Raw(HttpUtility.HtmlDecode(item.NoiDung))</p>
+                            <img src="~/assets/Images/TinTuc/@item.AnhTinTuc" style="margin: 2rem auto; display: flex; object-fit: cover" />
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

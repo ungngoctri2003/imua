@@ -1,0 +1,14 @@
+﻿@model List<Nhom8_IMUA.Models.GioHang>
+@{
+    ViewBag.Title = "CartCount";
+}
+@if (Model != null)
+{
+    <span class="cart__number">(@Model.Count)</span>
+}
+
+else
+{
+    <span class="cart__number">(0)</span>
+}
+

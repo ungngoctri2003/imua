@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Nhom8_IMUA.Models.SanPham>
+
+@foreach (var item in Model.Take(2))
+{ 
+    <div class="product">
+        <div class="product__thumb">
+            <a href="@Url.Action("Index","Product",new { MaSP = item.MaSP })" class="product__img">
+                <img src="~/assets/Images/SanPham/@item.AnhDaiDien" alt="" />
+            </a>
+            <!-- <a href="" class="product__quickview">xem nhanh</a> -->
+            <div class="product__add--cart">
+                <a href="" class="ajax-to-cart" data-id="@item.MaSP">
+                    <i class="fas fa-shopping-basket"></i> Thêm giỏ hàng
+                </a>
+            </div>
+        </div>
+        <div class="product__info">
+            <h3 class="product__title">
+                <a href="@Url.Action("Index","Product",new { MaSP = item.MaSP })">@item.TenSP</a>
+            </h3>
+            <div class="product__price">
+                @if (item.KhuyenMai == 0)
+                {
+                    <ins class="product__price--new">@string.Format("{0:c0}", item.Gia)</ins>
+                }
+                else
+                {
+                    <ins class="product__price--new">@string.Format("{0:c0}", item.Gia - item.Gia * item.KhuyenMai / 100)</ins>
+                    <del class="product__price--old">@string.Format("{0:c0}", item.Gia)</del>
+                }
+            </div>
+        </div>
+    </div>
+}

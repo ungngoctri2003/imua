@@ -1,0 +1,71 @@
+﻿@model PagedList.IPagedList<Nhom8_IMUA.Models.UserGroup>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <div class="table-header">
+                <h4 class="card-title">Danh sách loại tài khoản</h4>
+                <div class="header__middle--search">
+                    <div action="" class="header__search--input">
+                        @using (Html.BeginForm("Search", "LoaiTaiKhoans"))
+                        {
+                            <input type="text" placeholder="Tìm kiếm loại tài khoản" id="SearchString" name="SearchString" />
+                            <button type="submit" class="header__search--icon" onclick="return valid_search();">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        }
+                    </div>
+                </div>
+                <a class="btn btn-primary" href="@Url.Action("Create", "LoaiTaiKhoans")">
+                    <i class="ti-plus"></i>
+                </a>
+            </div>
+            <div id="search__result" style="text-transform: uppercase;">có <text style="color: red;">@ViewData["Count"]</text> loại tài khoản phù hợp với từ khoá: <text style="color: red">@ViewBag.CurrentFilter</text></div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Mã loại tài khoản</th>
+                            <th>Tên loại tài khoản</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.GroupID</td>
+                                <td>@item.Name</td>
+                                <td>
+                                    <div>
+                                        <a class="btn btn-primary" href="@Url.Action("Details", "LoaiTaiKhoans", new { id = item.GroupID })">
+                                            <i class="ti-eye"></i>
+                                        </a> &nbsp;
+                                        <a class="btn btn-primary" href="@Url.Action("Edit", "LoaiTaiKhoans", new { id = item.GroupID })">
+                                            <i class="ti-pencil-alt"></i>
+                                        </a> &nbsp;
+                                        <a class="btn btn-primary delBtnLTK" href="" data-id="@item.GroupID">
+                                            <i class="ti-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="phan-trang">@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ajaxDel{
+    <script src="~/Areas/Admin/assets/js/delete.js"></script>
+}

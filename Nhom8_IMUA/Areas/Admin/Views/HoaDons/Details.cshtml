@@ -1,0 +1,62 @@
+﻿@model Nhom8_IMUA.Models.HoaDon
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h3 class="elements-header">Chi tiết loại hóa đơn:</h3>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <tr>
+                    <td>
+                        <label class="elements-title">Mã hóa đơn :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.MaHD)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="elements-title">Tên người mua :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.NguoiDung.HoTen)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="elements-title">Ngày mua :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.NgayMua)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="elements-title">Thành tiền :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.ThanhTien)
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <span>In theo : </span>
+        @Html.ActionLink("PDF", "ExportFile", new { maHD = Model.MaHD, maND = Model.MaND, ReportType = "PDF" }) |
+        @Html.ActionLink("Excel", "ExportFile", new { maHD = Model.MaHD, maND = Model.MaND, ReportType = "Excel" }) |
+        @Html.ActionLink("Word", "ExportFile", new { maHD = Model.MaHD, maND = Model.MaND, ReportType = "Word" }) |
+        <button class="btn btn-inverse-dark btn-fw" onclick="location.href='@Url.Action("Index", "HoaDons")';return false;">Quay lại</button>
+    </div>
+</div>

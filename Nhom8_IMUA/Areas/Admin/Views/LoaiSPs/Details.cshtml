@@ -1,0 +1,38 @@
+﻿@model Nhom8_IMUA.Models.LoaiSP
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h3 class="elements-header">Chi tiết loại sản phẩm: @Html.DisplayFor(model => model.TenLoai)</h3>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <tr>
+                    <td>
+                        <label class="elements-title">Mã loại sản phẩm :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.MaLoai)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="elements-title">Thuộc danh mục :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.DanhMuc.TenDM)
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <button class="btn btn-inverse-dark btn-fw" onclick="location.href='@Url.Action("Index", "LoaiSPs")';return false;">Quay lại</button>
+    </div>
+</div>

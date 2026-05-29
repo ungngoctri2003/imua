@@ -1,0 +1,259 @@
+﻿@model IEnumerable<Nhom8_IMUA.Models.SanPham>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="detail">
+    <div class="container">
+        @foreach (var item in Model)
+        {
+            <div class="detail__path">
+                <a href="">
+                    iMua.com.vn
+                </a>
+                <span>@item.TenSP</span>
+            </div>
+            <div class="detail__item">
+                <div class="left">
+                    <div class="top">
+                        <div class="detail__img">
+                            <div class="img__item">
+                                <img id="zoom_01" src="~/assets/Images/SanPham/@item.AnhDaiDien" alt="" style="z-index: 99999">
+                            </div>
+                            <div class="wrapper">
+                                <a class="prev" onclick="plusSlides(-1)">
+                                    <i class="fas fa-chevron-left"></i>
+                                </a>
+                                <div class="box">
+                                    <div class="img__item">
+                                        <img class="demo" src="~/assets/Images/SanPham/@item.AnhDaiDien"
+                                             onclick="currentSlide(1)" alt="">
+                                    </div>
+                                    <div class="img__item">
+                                        <img class="demo" src="~/assets/Images/SanPham/@item.AnhDaiDien"
+                                             onclick="currentSlide(2)" alt="">
+                                    </div>
+                                    <div class="img__item">
+                                        <img class="demo" src="~/assets/Images/SanPham/@item.AnhDaiDien"
+                                             onclick="currentSlide(3)" alt="">
+                                    </div>
+                                </div>
+                                <a class="next" onclick="plusSlides(1)">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="detail__infor">
+                            <h1 class="title__detail">
+                                @item.TenSP
+                            </h1>
+                            <div class="detail__sub">
+                                <p class="desc">
+                                    @item.MoTa
+                                </p>
+                                <div class="product__price">
+                                    <span>Giá bán:</span>
+                                    @if (item.KhuyenMai == 0)
+                                    {
+                                        <ins class="product__price--new">@string.Format("{0:c0}", item.Gia)</ins>
+                                    }
+                                    else
+                                    {
+                                        <ins class="product__price--new">@string.Format("{0:c0}", item.Gia - item.Gia * item.KhuyenMai / 100)</ins>
+                                        <del class="product__price--old">@string.Format("{0:c0}", item.Gia)</del>
+                                    }
+                                    @if (item.KhuyenMai != 0)
+                                    {
+                                        <span class="percent">- @item.KhuyenMai%</span>
+                                    }
+                                </div>
+                                <div class="detail__commit">
+                                    <div class="code">
+                                        <span>Mã code: </span>
+                                        <span id="ma">@item.MaSP</span>
+                                    </div>
+                                    <div class="commit">
+                                        <p>
+                                            <i class="fas fa-check"></i> Sản phẩm đã được cấp giấy phép.
+                                        </p>
+                                        <p>
+                                            <i class="fas fa-check"></i> Hoàn tiền 100% nếu không hiệu quả.
+                                        </p>
+                                        <p>
+                                            <i class="fas fa-check"></i> Sáng đặt chiều giao : Áp dụng HCM.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="detail__extralink">
+                                <form action="">
+                                    <input type="number" name="" id="ipQuantity" value="1">
+                                </form>
+                                <div class="cart">
+                                    <a href="" class="button" id="buynow">Đặt hàng ngay</a>
+                                    <a href="" class="button" id="addtocart">
+                                        <i class="fas fa-shopping-basket"></i>
+                                        Thêm vào giỏ hàng
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="title">
+                            <h4>thông tin sản phẩm</h4>
+                        </div>
+                        <div class="box__item">
+                            <div class="box__infor">
+                                <p class="box__title">Thông tin sản phẩm:</p>
+                                <p>
+                                    <span>Sản phẩm: </span>
+                                    @item.TenSP
+                                <p>
+                                    <span>Xuất xứ: </span>
+                                    Việt Nam
+                                </p>
+                                <p>
+                                    <span>Dung tích: </span>
+                                    @item.TrongLuong
+                                </p>
+                            </div>
+                            <div class="box__infor">
+                                <p class="box__title">Trung tâm phân phối chính hãng:</p>
+                                <p>
+                                    <span>Phone: </span>
+                                    0911 403 114
+                                </p>
+                                <p>
+                                    <span>Địa chỉ: </span>
+                                    255 Bình Lợi, F13, Bình Thạnh, HCM
+                                </p>
+                            </div>
+                            <div class="box__infor">
+                                <p class="box__title">Chính sách bán hàng:</p>
+                                <p>
+                                    Giao hàng tận nơi trên toàn quốc.
+                                </p>
+                                <p>
+                                    Nhận hàng mới thanh toán tiền.
+                                </p>
+                                <p>
+                                    Nhận hàng mới thanh toán tiền.
+                                </p>
+                                <p>
+                                    Hoàn tiền 100% nếu bạn không hài lòng sản phẩm.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="policy">
+                        <h4>chính sách bán hàng</h4>
+                        <p>Tất cả vì khách hàng</p>
+                        <ul class="policy__menu">
+                            <li class="policy__item">
+                                <h3>
+                                    <img src="~/assets/img/mien-phi-van-chuyen--2.png" alt="">
+                                    GIAO HÀNG TOÀN QUỐC
+                                </h3>
+                                <p>Khi mua hàng bạn sẽ được giao hàng tận nhà trên toàn quốc dù bạn có ở vùng núi hay xa xôi nhất.</p>
+                            </li>
+                            <li class="policy__item">
+                                <h3>
+                                    <img src="~/assets/img/thanh-toan--2.png" alt="">
+                                    THANH TOÁN
+                                </h3>
+                                <p>
+                                    Thủ tục thanh toán đơn giản, bạn sẽ thanh toán tiền tại nhà và chỉ thanh toán tiền hàng sau khi nhận
+                                    hàng.
+                                </p>
+                            </li>
+                            <li class="policy__item">
+                                <h3>
+                                    <img src="~/assets/img/doi-tra-mien-phi--2.png" alt="">
+                                    ĐỔI TRẢ MIỄN PHÍ
+                                </h3>
+                                <p>
+                                    Đổi trả miễn phí tận nhà hoặc tại cửa hàng của chúng tôi trong 7 ngày, nếu hàng hóa gặp lỗi do nhà
+                                    sản xuất hoặc lỗi do quá trình vận chuyển.
+                                </p>
+                            </li>
+                            <li class="policy__item">
+                                <h3>
+                                    <img src="~/assets/img/mien-phi-ship--2.png" alt="">
+                                    MIỄN PHÍ SHIP
+                                </h3>
+                                <p>
+                                    Miễn phí giao hàng toàn quốc với đơn hàng có giá trị từ 400.000đ
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        }
+
+    </div>
+</div>
+@section addMoreCart{
+    <script>
+        $(document).ready(function () {
+            $("#ipQuantity").off().change(function (e) {
+                e.preventDefault();
+                var sl = $(this).val();
+                if (sl.length == 0) {
+                    alert("Số lượng nhập không được để trống!");
+                }
+                else if (isNaN(sl)) {
+                    alert("Số lượng nhập không được phép chứa ký tự khác số!");
+                }
+                else if (parseInt(sl) < 1) {
+                    alert("Số lượng nhập không được bé hơn 1!");
+                }
+                else {
+                }
+            });
+            $('#addtocart').off().click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: '/Cart/AddToCart',
+                    data: {
+                        id: parseInt($('#ma').text()),
+                        quantity: parseInt($('#ipQuantity').val())
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        alert("Thêm giỏ hàng thành công!");
+                        $(".cart__number").html("(" + data.SoLuong + ")");
+                    },
+                    error: function () {
+                        alert("Lỗi trong khi thêm vào giỏ hàng!");
+                    }
+                });
+                return false;
+            });
+            $('#buynow').off().click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: '/Cart/AddToCart',
+                    data: {
+                        id: parseInt($('#ma').text()),
+                        quantity: parseInt($('#ipQuantity').val())
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        $(".cart__number").html("(" + data.SoLuong + ")");
+                        location.href = "@Url.Action("Index", "Cart")";
+                    },
+                    error: function () {
+                        alert("Lỗi trong khi thêm vào giỏ hàng!");
+                    }
+                });
+                return false;
+            })
+        });
+    </script>
+}

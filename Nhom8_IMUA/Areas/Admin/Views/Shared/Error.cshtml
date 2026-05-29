@@ -1,0 +1,36 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section cssError{
+    <style>
+        .credentials-error {
+            font-size: 18px;
+            color: #a94442;
+            margin-top: 10px;
+            background-color: #f2dede;
+            padding: 10px;
+            width: 100%;
+        }
+
+            .credentials-error::before {
+                content: "\00d7";
+                color: white;
+                width: 20px;
+                height: 20px;
+                text-align: center;
+                background-color: #e00b0b;
+                font-size: 20px;
+                line-height: 20px;
+                margin: 0 10px 0 5px;
+                border-radius: 50%;
+                display: inline-block;
+                font-weight: 700;
+            }
+    </style>
+}
+
+<div>
+    <h2 class="credentials-error">Bạn không được thực hiện chức năng này.</h2>
+</div>
+

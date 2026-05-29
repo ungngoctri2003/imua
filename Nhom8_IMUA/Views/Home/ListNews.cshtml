@@ -1,0 +1,40 @@
+﻿@model PagedList.IPagedList<Nhom8_IMUA.Models.TinTuc>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "ListNews";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+<div class="widget" style="padding-top: 2rem;">
+    <div class="container">
+        @{ Html.RenderAction("Menu", "Category"); }
+        <div class="widget__content">
+            <div class="widget__category">
+                <div class="title">
+                    <span><i class="fas fa-th"></i></span>
+                    <h4>Tin nổi bật</h4>
+                </div>
+                <div class="wrapper" style="position: relative;">
+                    <div class="news__box">
+                        <ul class="news__menu">
+                            @foreach (var item in Model)
+                            {
+                                <li class="news__item">
+                                    <img src="~/assets/Images/TinTuc/@item.AnhTinTuc" alt="">
+                                    <div class="news__content">
+                                        <a href="@Url.Action("NewsDetail", "Home", new { id = item.MaTinTuc })" class="news__link">@item.TieuDe</a>
+                                        <p>@Html.Raw(HttpUtility.HtmlDecode(item.TomTat))</p>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="phan-trang">@Html.PagedListPager(Model, page => Url.Action("ListNews", new { page }))</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
