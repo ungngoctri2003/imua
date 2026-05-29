@@ -1,0 +1,225 @@
+@model List<IMua.Models.GioHang>
+
+@{
+    ViewBag.Title = "Giỏ hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var session = (IMua.Common.UserLogin)Session[IMua.Common.CommonConstants.USER_SESSION];
+}
+
+<div class="cart__detail">
+    <div class="container">
+        <div class="detail__path breadcrumb reveal">
+            <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+            <span class="breadcrumb__sep">/</span>
+            <span>Giỏ hàng</span>
+        </div>
+
+        @if (Model != null && Model.Count > 0)
+        {
+            var subtotal = Model.Sum(x => (x.Product.Gia - x.Product.Gia * x.Product.KhuyenMai / 100) * x.Quantity);
+            var shipping = subtotal >= 400000 ? 0 : 10000;
+            var total = subtotal + shipping;
+            var itemCount = Model.Sum(x => x.Quantity);
+
+            <div class="cart-page reveal">
+                <div class="cart-page__heading">
+                    <h1 class="cart-page__title">Giỏ hàng của bạn</h1>
+                    <p class="cart-page__subtitle">@itemCount sản phẩm trong giỏ</p>
+                </div>
+
+                <div class="cart-page__layout">
+                    <div class="cart-page__main">
+                        <div class="cart-items">
+                            @foreach (var item in Model)
+                            {
+                                var unitPrice = item.Product.Gia - item.Product.Gia * item.Product.KhuyenMai / 100;
+                                var lineTotal = unitPrice * item.Quantity;
+                                <article class="cart-item">
+                                    <a href="@Url.Action("Index", "Product", new { MaSP = item.Product.MaSP })" class="cart-item__thumb">
+                                        <img src="~/assets/Images/SanPham/@item.Product.AnhDaiDien" alt="@item.Product.TenSP" />
+                                    </a>
+                                    <div class="cart-item__info">
+                                        <a class="cart-item__name" href="@Url.Action("Index", "Product", new { MaSP = item.Product.MaSP })">@item.Product.TenSP</a>
+                                        <div class="cart-item__price product__price">
+                                            @if (item.Product.KhuyenMai > 0)
+                                            {
+                                                <ins>@string.Format("{0:c0}", unitPrice)</ins>
+                                                <del>@string.Format("{0:c0}", item.Product.Gia)</del>
+                                                <span class="badge-sale">-@item.Product.KhuyenMai%</span>
+                                            }
+                                            else
+                                            {
+                                                <ins>@string.Format("{0:c0}", unitPrice)</ins>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="cart-item__qty">
+                                        <div class="qty-stepper">
+                                            <button type="button" class="qty-stepper__btn qty-stepper__btn--minus" aria-label="Giảm số lượng">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                            <input type="text" data-id="@item.Product.MaSP" value="@item.Quantity" class="qty txtSoLuong" aria-label="Số lượng">
+                                            <button type="button" class="qty-stepper__btn qty-stepper__btn--plus" aria-label="Tăng số lượng">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="cart-item__total">
+                                        <span class="cart-item__total-label">Thành tiền</span>
+                                        <strong>@string.Format("{0:c0}", lineTotal)</strong>
+                                    </div>
+                                    <button type="button" data-id="@item.Product.MaSP" class="cart-item__remove txtDel" aria-label="Xóa sản phẩm">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </article>
+                            }
+                        </div>
+
+                        <a href="@Url.Action("Index", "Home")" class="cart-page__continue">
+                            <i class="fas fa-arrow-left"></i> Tiếp tục mua sắm
+                        </a>
+                    </div>
+
+                    <aside class="cart-sidebar">
+                        @if (shipping > 0)
+                        {
+                            <div class="cart-shipping-note">
+                                <i class="fas fa-truck"></i>
+                                <p>Mua thêm <strong>@string.Format("{0:c0}", 400000 - subtotal)</strong> để được <strong>miễn phí vận chuyển</strong></p>
+                                <div class="cart-shipping-note__bar">
+                                    <span style="width: @(Math.Min(100, (int)(subtotal / 400000 * 100)))%"></span>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="cart-shipping-note cart-shipping-note--free">
+                                <i class="fas fa-check-circle"></i>
+                                <p>Bạn đã được <strong>miễn phí vận chuyển</strong></p>
+                            </div>
+                        }
+
+                        <div class="cart-summary">
+                            <h3 class="cart-summary__title">Tóm tắt đơn hàng</h3>
+                            <div class="cart-summary__row">
+                                <span>Tạm tính (@itemCount SP)</span>
+                                <span>@string.Format("{0:c0}", subtotal)</span>
+                            </div>
+                            <div class="cart-summary__row">
+                                <span>Phí vận chuyển</span>
+                                <span>@(shipping == 0 ? "Miễn phí" : string.Format("{0:c0}", shipping))</span>
+                            </div>
+                            <div class="cart-summary__row cart-summary__row--total">
+                                <span>Tổng thanh toán</span>
+                                <span>@string.Format("{0:c0}", total)</span>
+                            </div>
+                        </div>
+
+                        <div class="cart-payment">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <span>Thanh toán khi nhận hàng (COD)</span>
+                        </div>
+
+                        @if (session == null)
+                        {
+                            <a href="#" class="cart-checkout-btn" data-auth-open="login" data-return-url="@Url.Action("Order", "Cart")">
+                                Hoàn tất đơn hàng <i class="fas fa-arrow-right"></i>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Order", "Cart")" class="cart-checkout-btn">
+                                Hoàn tất đơn hàng <i class="fas fa-arrow-right"></i>
+                            </a>
+                        }
+                    </aside>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="cart-empty-state reveal">
+                <div class="cart-empty-state__icon"><i class="fas fa-shopping-basket"></i></div>
+                <h2>Giỏ hàng trống</h2>
+                <p>Bạn chưa thêm sản phẩm nào. Khám phá ngay các sản phẩm hot của IMUA!</p>
+                <a href="@Url.Action("Index", "Home")" class="button btn-primary">Tiếp tục mua sắm</a>
+            </div>
+        }
+    </div>
+</div>
+
+@section scriptUp{
+    <script>
+        $(document).ready(function () {
+            function updateQty(input, newVal) {
+                var sl = String(newVal);
+                if (sl.length === 0) {
+                    alert("Số lượng nhập không được để trống!");
+                    return;
+                }
+                if (isNaN(sl)) {
+                    alert("Số lượng nhập không được phép chứa ký tự khác số!");
+                    return;
+                }
+                if (parseInt(sl, 10) < 1) {
+                    alert("Số lượng nhập không được bé hơn 1!");
+                    return;
+                }
+                input.val(sl);
+                $.ajax({
+                    url: "/Cart/UpdateCart",
+                    type: "POST",
+                    data: { id: input.data("id"), quantity: sl },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data != null) {
+                            window.location.href = "/Cart";
+                        } else {
+                            alert("Có lỗi xảy ra, vui lòng thử lại.");
+                        }
+                    }
+                });
+            }
+
+            $(".txtSoLuong").off("change").on("change", function () {
+                updateQty($(this), $(this).val());
+            });
+
+            $(".qty-stepper__btn--minus").on("click", function () {
+                var input = $(this).closest(".qty-stepper").find(".txtSoLuong");
+                var val = parseInt(input.val(), 10) || 1;
+                if (val > 1) updateQty(input, val - 1);
+            });
+
+            $(".qty-stepper__btn--plus").on("click", function () {
+                var input = $(this).closest(".qty-stepper").find(".txtSoLuong");
+                var val = parseInt(input.val(), 10) || 1;
+                updateQty(input, val + 1);
+            });
+        });
+    </script>
+}
+
+@section scriptDel{
+    <script>
+        $(document).ready(function () {
+            $(".txtDel").off("click").on("click", function (e) {
+                e.preventDefault();
+                if (!confirm("Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?")) return;
+                $.ajax({
+                    url: "/Cart/RemoveCart",
+                    type: "POST",
+                    data: { id: $(this).data("id") },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data != null) {
+                            window.location.href = "/Cart";
+                        } else {
+                            alert("Có lỗi xảy ra, vui lòng thử lại.");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

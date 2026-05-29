@@ -1,0 +1,95 @@
+@model IEnumerable<IMua.Models.HoaDon>
+
+@{
+    ViewBag.Title = "Đơn mua";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var orders = Model?.ToList() ?? new List<IMua.Models.HoaDon>();
+}
+
+<div class="cart__detail invoice-orders-page">
+    <div class="container">
+        <div class="detail__path breadcrumb reveal">
+            <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+            <span class="breadcrumb__sep">/</span>
+            <span>Đơn mua</span>
+        </div>
+
+        @if (orders.Any())
+        {
+            <div class="invoice-orders reveal">
+                <div class="invoice-orders__heading">
+                    <h1 class="invoice-orders__title">Đơn mua của bạn</h1>
+                    <p class="invoice-orders__subtitle">@orders.Count đơn hàng</p>
+                </div>
+
+                <div class="invoice-orders__list">
+                    @foreach (var item in orders)
+                    {
+                        var itemCount = item.ChiTietHoaDons?.Sum(x => x.SoLuong) ?? 0;
+                        var subtotal = item.ThanhTien - item.PhiVanChuyen;
+
+                        <article class="invoice-order">
+                            <header class="invoice-order__header">
+                                <div class="invoice-order__meta">
+                                    <span class="invoice-order__id">
+                                        <i class="fas fa-receipt"></i>
+                                        Đơn hàng #@item.MaHD.ToString("D6")
+                                    </span>
+                                    <span class="invoice-order__date">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        @item.NgayMua.ToString("dd/MM/yyyy HH:mm")
+                                    </span>
+                                    <span class="invoice-order__count">
+                                        <i class="fas fa-box"></i>
+                                        @itemCount sản phẩm
+                                    </span>
+                                </div>
+                                <span class="invoice-order__status">Đang xử lý</span>
+                            </header>
+
+                            <div class="invoice-order__body">
+                                @{ Html.RenderAction("ProductInvoice", "Invoice", new { id = item.MaHD }); }
+                            </div>
+
+                            <footer class="invoice-order__footer">
+                                <div class="invoice-order__summary">
+                                    <div class="invoice-order__summary-row">
+                                        <span>Tạm tính</span>
+                                        <strong>@string.Format("{0:c0}", subtotal)</strong>
+                                    </div>
+                                    <div class="invoice-order__summary-row">
+                                        <span>Phí vận chuyển</span>
+                                        <strong>@(item.PhiVanChuyen == 0 ? "Miễn phí" : string.Format("{0:c0}", item.PhiVanChuyen))</strong>
+                                    </div>
+                                    <div class="invoice-order__summary-row invoice-order__summary-row--total">
+                                        <span>Tổng thanh toán</span>
+                                        <strong>@string.Format("{0:c0}", item.ThanhTien)</strong>
+                                    </div>
+                                </div>
+
+                                <div class="invoice-order__actions">
+                                    <div class="invoice-order__payment">
+                                        <i class="fas fa-truck"></i>
+                                        <span>Thanh toán khi nhận hàng (COD)</span>
+                                    </div>
+                                    <a href="@Url.Action("Details", "Invoice", new { id = item.MaHD })" class="invoice-order__btn">
+                                        Chi tiết hóa đơn <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </footer>
+                        </article>
+                    }
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="cart-empty-state reveal">
+                <div class="cart-empty-state__icon"><i class="fas fa-clipboard-list"></i></div>
+                <h2>Chưa có đơn hàng</h2>
+                <p>Bạn chưa đặt đơn hàng nào. Khám phá ngay các sản phẩm hot của IMUA!</p>
+                <a href="@Url.Action("Index", "Home")" class="button btn-primary">Tiếp tục mua sắm</a>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+    @if (ViewBag.BreadcrumbMiddle != null)
+    {
+        <span class="breadcrumb__sep">/</span>
+        <a href="@ViewBag.BreadcrumbMiddleUrl">@ViewBag.BreadcrumbMiddle</a>
+    }
+    @if (ViewBag.BreadcrumbCurrent != null)
+    {
+        <span class="breadcrumb__sep">/</span>
+        <span>@ViewBag.BreadcrumbCurrent</span>
+    }
+</nav>

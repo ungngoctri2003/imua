@@ -1,0 +1,121 @@
+@{
+    var returnUrl = ViewBag.ReturnUrl as string ?? "";
+}
+
+<div class="auth-modal" id="authModal" aria-hidden="true" role="dialog" aria-labelledby="authModalTitle">
+    <div class="auth-modal__overlay" data-auth-close></div>
+    <div class="auth-modal__dialog">
+        <button type="button" class="auth-modal__close" data-auth-close aria-label="Đóng">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <div class="auth-modal__tabs">
+            <button type="button" class="auth-modal__tab is-active" data-auth-tab="login">Đăng nhập</button>
+            <button type="button" class="auth-modal__tab" data-auth-tab="register">Đăng ký</button>
+        </div>
+
+        <div class="auth-modal__panels">
+            <div class="auth-modal__panel is-active" data-auth-panel="login">
+                <h2 class="auth-modal__title" id="authModalTitle">Chào mừng trở lại</h2>
+                <p class="auth-modal__subtitle">Đăng nhập để mua sắm và theo dõi đơn hàng</p>
+                <div class="auth-modal__alert" id="loginAlert" hidden></div>
+                @using (Html.BeginForm("Login", "User", FormMethod.Post, new { @class = "auth-form", @id = "modal-login-form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="returnUrl" id="authReturnUrl" value="@returnUrl" />
+                    <div class="form-group">
+                        <div class="form-input">
+                            <label for="modal_TenDangNhap"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            @Html.TextBox("TenDangNhap", null, new { @id = "modal_TenDangNhap", @class = "auth-input", placeholder = "Tên đăng nhập", autocomplete = "username" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-input">
+                            <label for="modal_MatKhau"><i class="zmdi zmdi-lock"></i></label>
+                            @Html.Password("MatKhau", null, new { @id = "modal_MatKhau", @class = "auth-input", placeholder = "Mật khẩu", autocomplete = "current-password" })
+                        </div>
+                    </div>
+                    <div class="form-group auth-modal__remember">
+                        <label class="auth-modal__checkbox">
+                            <input type="checkbox" id="modalShowPassword" />
+                            <span>Hiển thị mật khẩu</span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="form-submit" id="modalLoginSubmit">
+                            <span>Đăng nhập</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                }
+                <p class="auth-modal__switch">
+                    Chưa có tài khoản?
+                    <button type="button" data-auth-tab="register" class="auth-modal__link">Đăng ký ngay</button>
+                </p>
+            </div>
+
+            <div class="auth-modal__panel" data-auth-panel="register">
+                <h2 class="auth-modal__title">Tạo tài khoản mới</h2>
+                <p class="auth-modal__subtitle">Tham gia IMUA để nhận ưu đãi độc quyền</p>
+                <div class="auth-modal__alert" id="registerAlert" hidden></div>
+                @using (Html.BeginForm("Register", "User", FormMethod.Post, new { @class = "auth-form auth-form--register", @id = "modal-register-form", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="auth-form__avatar">
+                        <img id="modalAvatarPreview" src="@Url.Content("~/assets/Images/AnhDaiDien/default-avatar.png")" data-default="@Url.Content("~/assets/Images/AnhDaiDien/default-avatar.png")" alt="Ảnh đại diện" />
+                        <label for="modalImageFile" class="auth-form__avatar-btn">Chọn ảnh</label>
+                        <input type="file" name="ImageFile" id="modalImageFile" accept="image/*" hidden />
+                    </div>
+                    <div class="auth-form__grid">
+                        <div class="form-group">
+                            <div class="form-input">
+                                <label for="modal_HoTen"><i class="zmdi zmdi-account"></i></label>
+                                @Html.TextBox("HoTen", null, new { @id = "modal_HoTen", placeholder = "Họ và tên" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-input">
+                                <label for="modal_RegTenDangNhap"><i class="zmdi zmdi-account-circle"></i></label>
+                                @Html.TextBox("TenDangNhap", null, new { @id = "modal_RegTenDangNhap", placeholder = "Tên đăng nhập" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-input">
+                                <label for="modal_Email"><i class="zmdi zmdi-email"></i></label>
+                                @Html.TextBox("Email", null, new { @id = "modal_Email", placeholder = "Email" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-input">
+                                <label for="modal_RegMatKhau"><i class="zmdi zmdi-lock"></i></label>
+                                @Html.Password("MatKhau", null, new { @id = "modal_RegMatKhau", placeholder = "Mật khẩu (tối thiểu 6 ký tự)" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-input">
+                                <label for="modal_SoDT"><i class="zmdi zmdi-phone"></i></label>
+                                @Html.TextBox("SoDT", null, new { @id = "modal_SoDT", placeholder = "Số điện thoại" })
+                            </div>
+                        </div>
+                        <div class="form-group auth-form__full">
+                            <div class="form-input">
+                                <label for="modal_DiaChi"><i class="zmdi zmdi-home"></i></label>
+                                @Html.TextBox("DiaChi", null, new { @id = "modal_DiaChi", placeholder = "Địa chỉ" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="form-submit" id="modalRegisterSubmit">
+                            <span>Đăng ký</span>
+                            <i class="fas fa-user-plus"></i>
+                        </button>
+                    </div>
+                }
+                <p class="auth-modal__switch">
+                    Đã có tài khoản?
+                    <button type="button" data-auth-tab="login" class="auth-modal__link">Đăng nhập</button>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

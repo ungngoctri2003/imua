@@ -1,0 +1,30 @@
+﻿@{
+    var title = ViewBag.SectionTitle as string ?? "";
+    var subtitle = ViewBag.SectionSubtitle as string;
+    var linkText = ViewBag.SectionLinkText as string;
+    var linkUrl = ViewBag.SectionLinkUrl as string;
+}
+
+<div class="title section-title reveal">
+    <div class="section-title__inner">
+        <span class="section-title__decor section-title__decor--left" aria-hidden="true">
+            <span class="section-title__line"></span>
+            <span class="section-title__diamond"></span>
+        </span>
+        <div class="section-title__text">
+            <h4>@title</h4>
+            @if (!string.IsNullOrEmpty(subtitle))
+            {
+                <p class="section-title__subtitle">@subtitle</p>
+            }
+        </div>
+        <span class="section-title__decor section-title__decor--right" aria-hidden="true">
+            <span class="section-title__diamond"></span>
+            <span class="section-title__line"></span>
+        </span>
+    </div>
+    @if (!string.IsNullOrEmpty(linkText) && !string.IsNullOrEmpty(linkUrl))
+    {
+        <a href="@linkUrl" class="title__link">@linkText <i class="fas fa-arrow-right"></i></a>
+    }
+</div>

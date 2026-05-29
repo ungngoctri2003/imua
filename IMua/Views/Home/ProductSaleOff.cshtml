@@ -1,0 +1,6 @@
+@model IEnumerable<IMua.Models.SanPham>
+
+@foreach (var item in Model.Take(2))
+{
+    @Html.Partial("_ProductCard", IMua.Models.ProductCardViewModel.From(item))
+}

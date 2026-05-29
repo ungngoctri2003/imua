@@ -1,0 +1,36 @@
+@model IEnumerable<IMua.Models.ChiTietHoaDon>
+
+@foreach (var item in Model)
+{
+    var unitPrice = item.SanPham.Gia - item.SanPham.Gia * item.SanPham.KhuyenMai / 100;
+    var lineTotal = unitPrice * item.SoLuong;
+
+    <div class="invoice-order__product">
+        <a href="@Url.Action("Index", "Product", new { MaSP = item.SanPham.MaSP })" class="invoice-order__product-thumb">
+            <img src="~/assets/Images/SanPham/@item.SanPham.AnhDaiDien" alt="@item.SanPham.TenSP" />
+        </a>
+        <div class="invoice-order__product-info">
+            <a class="invoice-order__product-name" href="@Url.Action("Index", "Product", new { MaSP = item.SanPham.MaSP })">@item.SanPham.TenSP</a>
+            <div class="invoice-order__product-price product__price">
+                @if (item.SanPham.KhuyenMai > 0)
+                {
+                    <ins>@string.Format("{0:c0}", unitPrice)</ins>
+                    <del>@string.Format("{0:c0}", item.SanPham.Gia)</del>
+                    <span class="badge-sale">-@item.SanPham.KhuyenMai%</span>
+                }
+                else
+                {
+                    <ins>@string.Format("{0:c0}", unitPrice)</ins>
+                }
+            </div>
+        </div>
+        <div class="invoice-order__product-qty">
+            <span class="invoice-order__product-qty-label">SL</span>
+            <span class="invoice-order__product-qty-value">@item.SoLuong</span>
+        </div>
+        <div class="invoice-order__product-total">
+            <span class="invoice-order__product-total-label">Thành tiền</span>
+            <strong>@string.Format("{0:c0}", lineTotal)</strong>
+        </div>
+    </div>
+}

@@ -1,0 +1,119 @@
+@model IEnumerable<IMua.Models.DanhMuc>
+
+<div class="header__bottom">
+    <nav class="nav" id="mainNav">
+        <div class="container">
+            <button class="nav-toggle" id="navToggle" aria-label="Mở menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav__menu" id="navMenu">
+                <li class="nav__item nav__item--mega">
+                    <a class="nav__link" href="#">
+                        <i class="fas fa-bars"></i>
+                        danh mục sản phẩm
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <ul class="nav__dropdown nav__dropdown--mega">
+                        @foreach (var item in Model)
+                        {
+                            <li class="nav__item nav__item--has-sub">
+                                <a href="@Url.Action("Index", "Category", new { id = item.MaDM })" class="nav__link mega-sidebar__link">
+                                    <span class="mega-sidebar__text">@item.TenDM</span>
+                                    @{
+                                        string ImagePath = "~/assets/Images/DanhMuc/" + item.BieuTuong;
+                                    }
+                                    <img src="@Url.Content(ImagePath)" alt="@item.TenDM" class="mega-sidebar__icon" />
+                                    <i class="fas fa-chevron-right mega-sidebar__arrow" aria-hidden="true"></i>
+                                </a>
+                                <ul class="sub__nav mega-panel">
+                                    <li class="mega-panel__links">
+                                        <div class="mega-panel__header">
+                                            <div class="mega-panel__header-icon">
+                                                <img src="@Url.Content(ImagePath)" alt="@item.TenDM" />
+                                            </div>
+                                            <div class="mega-panel__header-text">
+                                                <h4 class="mega-panel__title">@item.TenDM</h4>
+                                                <p class="mega-panel__count">@item.LoaiSPs.Count loại sản phẩm</p>
+                                            </div>
+                                        </div>
+                                        <ul class="mega-panel__list">
+                                            @foreach (var subitem in item.LoaiSPs)
+                                            {
+                                                <li class="mega-panel__item">
+                                                    <a href="@Url.Action("ProductType","Home",new { id = subitem.MaLoai })" class="mega-panel__link">
+                                                        <span class="mega-panel__link-icon"><i class="fas fa-tag"></i></span>
+                                                        <span class="mega-panel__link-text">@subitem.TenLoai</span>
+                                                        <i class="fas fa-chevron-right mega-panel__link-arrow" aria-hidden="true"></i>
+                                                    </a>
+                                                </li>
+                                            }
+                                        </ul>
+                                        <a href="@Url.Action("Index", "Category", new { id = item.MaDM })" class="mega-panel__viewall">
+                                            Xem tất cả @item.TenDM
+                                            <i class="fas fa-arrow-right"></i>
+                                        </a>
+                                    </li>
+                                    <li class="mega-panel__banner">
+                                        <a href="@Url.Action("Index", "Category", new { id = item.MaDM })">
+                                            @{
+                                                string image = "~/assets/Images/DanhMuc/" + item.AnhDM;
+                                            }
+                                            <img src="@Url.Content(image)" alt="@item.TenDM" />
+                                            <span class="mega-panel__banner-overlay">
+                                                <span class="mega-panel__banner-cta">Khám phá ngay</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                </li>
+                <li class="nav__item">
+                    <a class="nav__link" href="@Url.Action("ShoppingGuide", "Home")">
+                        hướng dẫn mua hàng
+                    </a>
+                </li>
+                <li class="nav__item">
+                    <a class="nav__link" href="@Url.Action("ListNews", "Home")">
+                        tin nổi bật
+                    </a>
+                </li>
+                <li class="nav__item nav__item--sale">
+                    <a class="nav__link" href="@Url.Action("ListProductSaleOff", "Home")">
+                        sản phẩm sale off
+                    </a>
+                    <ul class="nav__dropdown">
+                        <li class="nav__item sale-dropdown">
+                            <div class="sale-dropdown__promo">
+                                <div class="nav__item--img">
+                                    <a href="@Url.Action("ListProductSaleOff", "Home")">
+                                        <img src="~/assets/img/26.jpg" alt="Sale off" />
+                                    </a>
+                                </div>
+                                <h4 class="nav__item--title">
+                                    <a href="@Url.Action("ListProductSaleOff", "Home")">sản phẩm sale off từ 10% - 40%</a>
+                                </h4>
+                                <p class="nav__item--desc">
+                                    Khi đến với IMUA.com.vn bạn sẽ mua được những sản phẩm chất lượng và có cơ hội được sale off đến
+                                    50% kèm theo nhiều quà tặng hấp dẫn khác
+                                </p>
+                            </div>
+                            <div class="sale-dropdown__products">
+                                <h4>danh sách sản phẩm</h4>
+                                <div class="item">
+                                    @{ Html.RenderAction("ProductSaleOff", "Home"); }
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav__item">
+                    <a class="nav__link" href="@Url.Action("Contact", "Home")">
+                        liên hệ
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
