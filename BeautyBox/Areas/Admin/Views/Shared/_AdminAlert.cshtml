@@ -1,0 +1,10 @@
+@{
+    var message = ViewData["Message"] as string ?? ViewBag.AdminAlertMessage as string;
+    var type = ViewData["AlertType"] as string ?? "error";
+}
+@if (!string.IsNullOrEmpty(message))
+{
+    <div class="admin-alert admin-alert--@type" role="alert">
+        @message
+    </div>
+}

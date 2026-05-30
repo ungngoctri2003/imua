@@ -1,0 +1,32 @@
+/* BeautyBox design tokens — admin only (không load setting.css toàn site) */
+:root {
+  --color-primary: #F173AC;
+  --color-primary-dark: #D9548F;
+  --color-primary-light: #F8B5D4;
+  --color-accent: #00C6F2;
+  --color-bg: #FFFFFF;
+  --color-surface: #FFFFFF;
+  --color-text: #333333;
+  --color-text-muted: #666666;
+  --color-border: #EDEDED;
+  --color-footer-bg: #333333;
+  --color-primary-rgb: 241, 115, 172;
+  --color-accent-rgb: 0, 198, 242;
+  --color-success: #1B7A43;
+  --color-error: #C45C5C;
+  --font-heading: "Playfair Display", "Be Vietnam Pro", Georgia, serif;
+  --font-body: "Be Vietnam Pro", "Segoe UI", sans-serif;
+  --space-xs: 0.4rem;
+  --space-sm: 0.8rem;
+  --space-md: 1.6rem;
+  --space-lg: 2.4rem;
+  --space-xl: 4rem;
+  --radius-sm: 0.6rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.6rem;
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 3px rgba(45, 45, 45, 0.06);
+  --shadow-md: 0 4px 20px rgba(45, 45, 45, 0.08);
+  --shadow-lg: 0 12px 40px rgba(45, 45, 45, 0.1);
+  --transition: 0.25s ease;
+}

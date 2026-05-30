@@ -1,0 +1,141 @@
+@{
+    var danhMucs = ViewBag.DanhMuc as IEnumerable<BeautyBox.Models.DanhMuc>;
+}
+@using BeautyBox.Common
+@using System.Linq
+
+<div class="home-page">
+
+    <section class="home-hero">
+        <div class="container">
+            <div class="bb-hero__slider" aria-label="Banner khuyến mãi">
+                <div class="bb-hero__slides">
+                    <div class="bb-hero__slide">
+                        <a href="@Url.Action("ListProductSaleOff", "Home")">
+                            <img src="@Url.Content("~/assets/img/d5935016-faec-4d7f-8a90-be4c81a6786d.webp")" alt="Ưu đãi BeautyBox">
+                        </a>
+                    </div>
+                    <div class="bb-hero__slide">
+                        <a href="@Url.Action("ListProductSaleOff", "Home")">
+                            <img src="@Url.Content("~/assets/img/3430b21f-ffaa-4be4-840e-ffbe1d16283f.webp")" alt="Khuyến mãi BeautyBox">
+                        </a>
+                    </div>
+                    <div class="bb-hero__slide">
+                        <a href="@Url.Action("ListProductSaleOff", "Home")">
+                            <img src="@Url.Content("~/assets/img/af56c695-595d-4096-b15e-98d10356c70e.webp")" alt="Sale off BeautyBox">
+                        </a>
+                    </div>
+                </div>
+                <button type="button" class="bb-hero__nav bb-hero__nav--prev" aria-label="Banner trước">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button type="button" class="bb-hero__nav bb-hero__nav--next" aria-label="Banner sau">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="bb-hero__dots">
+                    <button type="button" class="bb-hero__dot is-active" aria-label="Slide 1"></button>
+                    <button type="button" class="bb-hero__dot" aria-label="Slide 2"></button>
+                    <button type="button" class="bb-hero__dot" aria-label="Slide 3"></button>
+                </div>
+            </div>
+            @Html.Partial("_HomeBenefits")
+        </div>
+    </section>
+
+    @if (danhMucs != null)
+    {
+        <section class="home-section home-section--white reveal">
+            <div class="container">
+                @{ ViewBag.SectionTitle = "Danh mục nổi bật"; ViewBag.SectionSubtitle = "Chọn nhanh theo nhu cầu làm đẹp của bạn"; ViewBag.SectionLinkText = null; ViewBag.SectionLinkUrl = null; ViewBag.SectionBadge = null; }
+                @Html.Partial("_HomeSectionHead")
+                <div class="home-cats stagger-children">
+                    @foreach (var item in danhMucs)
+                    {
+                        var iconClass = DanhMucIconHelper.GetIconClass(item.MaDM);
+                        <a href="@Url.Action("Index", "Category", new { id = item.MaDM })" class="home-cat-card">
+                            <span class="home-cat-card__icon">
+                                <i class="fas @iconClass" aria-hidden="true"></i>
+                            </span>
+                            <span class="home-cat-card__name">@item.TenDM</span>
+                        </a>
+                    }
+                </div>
+            </div>
+        </section>
+    }
+
+    <section class="home-section home-section--accent reveal">
+        <div class="container">
+            @{ ViewBag.SectionTitle = "Khuyến mãi hot"; ViewBag.SectionSubtitle = "Ưu đãi giới hạn — Mua là có quà"; ViewBag.SectionLinkText = "Xem tất cả"; ViewBag.SectionLinkUrl = Url.Action("ListProductSaleOff", "Home"); ViewBag.SectionBadge = "HOT"; }
+            @Html.Partial("_HomeSectionHead")
+            <div class="home-flash-grid home-flash-grid--one-row stagger-children">
+                @{ Html.RenderAction("ProductSaleOff", "Home"); }
+            </div>
+        </div>
+    </section>
+
+    <section class="home-section home-section--white reveal">
+        <div class="container">
+            @{ ViewBag.SectionTitle = "Sản phẩm bán chạy"; ViewBag.SectionSubtitle = "Được yêu thích nhất tuần này"; ViewBag.SectionLinkText = null; ViewBag.SectionLinkUrl = null; ViewBag.SectionBadge = null; }
+            @Html.Partial("_HomeSectionHead")
+            <div class="home-product-grid home-product-grid--one-row stagger-children">
+                @foreach (BeautyBox.Models.SanPhamBanChay item in ((IEnumerable<BeautyBox.Models.SanPhamBanChay>)ViewBag.SanPhamBanChay).Take(4))
+                {
+                    @Html.Partial("_ProductCard", BeautyBox.Models.ProductCardViewModel.From(item))
+                }
+            </div>
+        </div>
+    </section>
+
+    @if (danhMucs != null)
+    {
+        <section class="home-section home-section--muted reveal">
+            <div class="container">
+                @foreach (var item in danhMucs)
+                {
+                    <div class="home-category reveal">
+                        @{ ViewBag.SectionTitle = item.TenDM; ViewBag.SectionSubtitle = null; ViewBag.SectionLinkText = "Xem tất cả"; ViewBag.SectionLinkUrl = Url.Action("Index", "Category", new { id = item.MaDM }); ViewBag.SectionBadge = null; }
+                        @Html.Partial("_HomeSectionHead")
+                        @if (item.LoaiSPs != null && item.LoaiSPs.Any())
+                        {
+                            <div class="home-category__tags">
+                                @foreach (var sub in item.LoaiSPs.Take(6))
+                                {
+                                    <a href="@Url.Action("ProductType", "Home", new { id = sub.MaLoai })" class="home-category__tag">@sub.TenLoai</a>
+                                }
+                            </div>
+                        }
+                        @{ Html.RenderAction("Product", "Home", new { MaDM = item.MaDM }); }
+                    </div>
+                }
+            </div>
+        </section>
+    }
+
+    <section class="home-section home-section--white reveal">
+        <div class="container">
+            @{ ViewBag.SectionTitle = "Tạp chí làm đẹp"; ViewBag.SectionSubtitle = "Mẹo skincare & xu hướng mới"; ViewBag.SectionLinkText = "Xem tất cả"; ViewBag.SectionLinkUrl = Url.Action("ListNews", "Home"); ViewBag.SectionBadge = null; }
+            @Html.Partial("_HomeSectionHead")
+            <div class="home-news-grid stagger-children">
+                @foreach (var item in ViewBag.TinTuc)
+                {
+                    <article class="home-news-card">
+                        <a href="@Url.Action("NewsDetail", "Home", new { id = item.MaTinTuc })" class="home-news-card__media">
+                            <img src="@Url.Content("~/assets/Images/TinTuc/" + item.AnhTinTuc)" alt="@item.TieuDe" />
+                        </a>
+                        <div class="home-news-card__body">
+                            <h3 class="home-news-card__title">
+                                <a href="@Url.Action("NewsDetail", "Home", new { id = item.MaTinTuc })">@item.TieuDe</a>
+                            </h3>
+                            <p class="home-news-card__excerpt">@item.TomTat</p>
+                            <a href="@Url.Action("NewsDetail", "Home", new { id = item.MaTinTuc })" class="home-news-card__link">
+                                Đọc thêm <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+                }
+            </div>
+        </div>
+    </section>
+
+</div>

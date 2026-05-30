@@ -1,0 +1,56 @@
+@model PagedList.IPagedList<BeautyBox.Models.SanPham>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Danh sách sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_AdminPageStart")
+@Html.Partial("_AdminListToolbar", null, new ViewDataDictionary {
+    { "ListTitle", "Danh sách sản phẩm" },
+    { "ListController", "SanPhams" },
+    { "SearchPlaceholder", "Tìm kiếm sản phẩm" },
+    { "ShowCreate", true }
+})
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Khuyến mãi (%)</th>
+                <th>Xuất xứ</th>
+                <th>Trọng lượng</th>
+                <th class="text-right">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><strong>@item.TenSP</strong></td>
+                    <td>@string.Format("{0:c0}", item.Gia)</td>
+                    <td>@item.KhuyenMai</td>
+                    <td>@item.XuatXu</td>
+                    <td>@item.TrongLuong</td>
+                    <td class="text-right">
+                        @Html.Partial("_AdminTableActions", null, new ViewDataDictionary {
+                            { "DetailsUrl", Url.Action("Details", "SanPhams", new { id = item.MaSP }) },
+                            { "EditUrl", Url.Action("Edit", "SanPhams", new { id = item.MaSP }) },
+                            { "DeleteCssClass", "delBtnSP" },
+                            { "DeleteId", item.MaSP }
+                        })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="admin-pagination phan-trang">@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))</div>
+@Html.Partial("_AdminPageEnd")
+
+@section ajaxDel{
+    <script src="~/Areas/Admin/assets/js/delete.js"></script>
+}

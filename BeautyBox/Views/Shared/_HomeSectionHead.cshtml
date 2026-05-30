@@ -1,0 +1,25 @@
+@{
+    var title = ViewBag.SectionTitle as string ?? "";
+    var subtitle = ViewBag.SectionSubtitle as string;
+    var linkText = ViewBag.SectionLinkText as string;
+    var linkUrl = ViewBag.SectionLinkUrl as string;
+    var badge = ViewBag.SectionBadge as string;
+}
+
+<header class="home-head">
+    <div class="home-head__text">
+        @if (!string.IsNullOrEmpty(badge))
+        {
+            <span class="home-head__badge">@badge</span>
+        }
+        <h2 class="home-head__title">@title</h2>
+        @if (!string.IsNullOrEmpty(subtitle))
+        {
+            <p class="home-head__subtitle">@subtitle</p>
+        }
+    </div>
+    @if (!string.IsNullOrEmpty(linkText) && !string.IsNullOrEmpty(linkUrl))
+    {
+        <a href="@linkUrl" class="home-head__link">@linkText <i class="fas fa-chevron-right"></i></a>
+    }
+</header>

@@ -1,0 +1,36 @@
+@model BeautyBox.Models.NguoiDung
+
+@{
+    ViewBag.Title = "Thêm tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Create", "NguoiDungs", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Partial("_AdminFormCard", null, new ViewDataDictionary { { "FormTitle", "Thêm tài khoản" }, { "FormController", "NguoiDungs" } })
+    @Html.ValidationSummary(true, "", new { @class = "admin-alert admin-alert--error" })
+    @Html.HiddenFor(model => model.TrangThai)
+    @Html.HiddenFor(model => model.GroupID)
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tr><td><label class="elements-title">Tên đăng nhập</label></td></tr>
+            <tr><td>@Html.EditorFor(m => m.TenDangNhap, new { htmlAttributes = new { @class = "form-control" } }) @Html.ValidationMessageFor(m => m.TenDangNhap, "", new { @class = "text-danger" })</td></tr>
+            <tr><td><label class="elements-title">Mật khẩu</label></td></tr>
+            <tr><td>@Html.EditorFor(m => m.MatKhau, new { htmlAttributes = new { @class = "form-control" } }) @Html.ValidationMessageFor(m => m.MatKhau, "", new { @class = "text-danger" })</td></tr>
+            <tr><td><label class="elements-title">Họ tên</label></td></tr>
+            <tr><td>@Html.EditorFor(m => m.HoTen, new { htmlAttributes = new { @class = "form-control" } }) @Html.ValidationMessageFor(m => m.HoTen, "", new { @class = "text-danger" })</td></tr>
+            <tr><td><label class="elements-title">Ảnh đại diện</label></td></tr>
+            <tr><td>@Html.EditorFor(m => m.AnhDaiDien, new { htmlAttributes = new { @class = "form-control" } }) @Html.ValidationMessageFor(m => m.AnhDaiDien, "", new { @class = "text-danger" })</td></tr>
+            <tr><td><label class="elements-title">Số điện thoại</label></td></tr>
+            <tr><td>@Html.EditorFor(m => m.SoDT, new { htmlAttributes = new { @class = "form-control" } }) @Html.ValidationMessageFor(m => m.SoDT, "", new { @class = "text-danger" })</td></tr>
+            <tr><td><label class="elements-title">Địa chỉ</label></td></tr>
+            <tr><td>@Html.EditorFor(m => m.DiaChi, new { htmlAttributes = new { @class = "form-control" } }) @Html.ValidationMessageFor(m => m.DiaChi, "", new { @class = "text-danger" })</td></tr>
+            <tr><td><label class="elements-title">Email</label></td></tr>
+            <tr><td>@Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control" } }) @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })</td></tr>
+            <tr><td><button type="submit" class="btn btn-primary">Lưu tài khoản</button></td></tr>
+        </table>
+    </div>
+    @Html.Partial("_AdminFormCardEnd", null, new ViewDataDictionary { { "FormController", "NguoiDungs" } })
+}

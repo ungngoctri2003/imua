@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-contact">
+    <div class="container">
+        @{ ViewBag.SectionTitle = "Liên hệ"; }
+        @Html.Partial("_SectionTitle")
+        <div class="contact-card card reveal">
+            <h2 class="contact-card__title">Beauty Box — Trung tâm bán hàng trực tuyến</h2>
+            <div class="contact-card__info">
+                <p><strong>Trung tâm phân phối:</strong> Bắc Từ Liêm, Hà Nội</p>
+                <p><strong>Hotline:</strong> <a href="tel:0857898971">0857898971</a></p>
+                <p><strong>E-mail:</strong> <a href="mailto:info@beautybox.com.vn">info@beautybox.com.vn</a></p>
+                <p><strong>Website:</strong> <a href="https://beautybox.com.vn" target="_blank" rel="noopener">beautybox.com.vn</a></p>
+            </div>
+        </div>
+    </div>
+</div>

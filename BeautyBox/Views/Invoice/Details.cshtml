@@ -1,0 +1,250 @@
+@model IEnumerable<BeautyBox.Models.ChiTietHoaDon>
+@using BeautyBox.Common
+
+@{
+    ViewBag.Title = "Chi tiết hóa đơn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var items = Model?.ToList() ?? new List<BeautyBox.Models.ChiTietHoaDon>();
+    var order = ViewBag.Order as BeautyBox.Models.HoaDon;
+
+    if (order == null && items.Any())
+    {
+        order = items.First().HoaDon;
+    }
+
+    if (order == null && ViewBag.User != null)
+    {
+        var legacyOrders = ViewBag.User as IEnumerable<BeautyBox.Models.HoaDon>;
+        order = legacyOrders?.FirstOrDefault();
+    }
+
+    var session = Session[CommonConstants.USER_SESSION] as UserLogin;
+    var backUserId = order?.MaND ?? session?.UserID;
+    var subtotal = order != null ? order.ThanhTien - order.PhiVanChuyen : 0m;
+    var itemCount = items.Sum(x => x.SoLuong);
+    var hasInvoice = order != null || items.Any();
+}
+
+<div class="cart__detail invoice-details-page">
+    <div class="container">
+        <div class="detail__path breadcrumb reveal">
+            <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+            <span class="breadcrumb__sep">/</span>
+            @if (backUserId.HasValue)
+            {
+                <a href="@Url.Action("Index", "Invoice", new { id = backUserId.Value })">Đơn mua</a>
+                <span class="breadcrumb__sep">/</span>
+            }
+            <span>Chi tiết hóa đơn</span>
+        </div>
+
+        @if (hasInvoice && order != null)        {
+            <div class="invoice-details reveal">
+                <div class="invoice-details__toolbar no-print">
+                    @if (backUserId.HasValue)
+                    {
+                        <a href="@Url.Action("Index", "Invoice", new { id = backUserId.Value })" class="invoice-details__back">
+                            <i class="fas fa-arrow-left"></i> Quay lại đơn mua
+                        </a>
+                    }
+                    <button type="button" class="invoice-details__print" onclick="window.print()">
+                        <i class="fas fa-print"></i> In hóa đơn
+                    </button>
+                </div>
+
+                <article class="invoice-details__card">
+                    <header class="invoice-details__header">
+                        <div class="invoice-details__brand">
+                            <a href="@Url.Action("Index", "Home")" class="invoice-details__logo">
+                                <img src="~/assets/img/logo.png" alt="Beauty Box">
+                            </a>
+                            <div>
+                                <p class="invoice-details__brand-name">Beauty Box</p>
+                                <p class="invoice-details__brand-tagline">Mỹ phẩm online chính hãng</p>
+                            </div>
+                        </div>
+                        <div class="invoice-details__company">
+                            <p><i class="fas fa-phone"></i> 0857898971</p>
+                            <p><i class="fas fa-globe"></i> https://beautybox.com.vn</p>
+                            <p><i class="fas fa-map-marker-alt"></i> Bắc Từ Liêm, Hà Nội</p>
+                        </div>
+                    </header>
+
+                    <div class="invoice-details__title-row">
+                        <div>
+                            <h1 class="invoice-details__title">Hóa đơn bán hàng</h1>
+                            <p class="invoice-details__subtitle">Cảm ơn bạn đã mua sắm tại Beauty Box</p>
+                        </div>
+                        <span class="invoice-details__status">Đang xử lý</span>
+                    </div>
+
+                    <div class="invoice-details__meta">
+                        <div class="invoice-details__meta-item">
+                            <span class="invoice-details__meta-label">Mã đơn hàng</span>
+                            <strong>#@order.MaHD.ToString("D6")</strong>
+                        </div>
+                        <div class="invoice-details__meta-item">
+                            <span class="invoice-details__meta-label">Ngày đặt</span>
+                            <strong>@order.NgayMua.ToString("dd/MM/yyyy HH:mm")</strong>
+                        </div>
+                        <div class="invoice-details__meta-item">
+                            <span class="invoice-details__meta-label">Số sản phẩm</span>
+                            <strong>@itemCount sản phẩm</strong>
+                        </div>
+                        <div class="invoice-details__meta-item">
+                            <span class="invoice-details__meta-label">Thanh toán</span>
+                            <strong>COD — Thanh toán khi nhận hàng</strong>
+                        </div>
+                    </div>
+
+                    <div class="invoice-details__info-grid">
+                        <section class="invoice-details__info-box">
+                            <h2 class="invoice-details__info-title">
+                                <i class="fas fa-user"></i> Thông tin khách hàng
+                            </h2>
+                            @if (order.NguoiDung != null)
+                            {
+                                <dl class="invoice-details__info-list">
+                                    <div class="invoice-details__info-row">
+                                        <dt>Họ tên</dt>
+                                        <dd>@order.NguoiDung.HoTen</dd>
+                                    </div>
+                                    <div class="invoice-details__info-row">
+                                        <dt>Điện thoại</dt>
+                                        <dd>@order.NguoiDung.SoDT</dd>
+                                    </div>
+                                    <div class="invoice-details__info-row">
+                                        <dt>Địa chỉ</dt>
+                                        <dd>@order.NguoiDung.DiaChi</dd>
+                                    </div>
+                                </dl>
+                            }
+                        </section>
+
+                        <section class="invoice-details__info-box">
+                            <h2 class="invoice-details__info-title">
+                                <i class="fas fa-file-invoice"></i> Thông tin hóa đơn
+                            </h2>
+                            <dl class="invoice-details__info-list">
+                                <div class="invoice-details__info-row">
+                                    <dt>Mã hóa đơn</dt>
+                                    <dd>HD-@order.MaHD.ToString("D6")</dd>
+                                </div>
+                                <div class="invoice-details__info-row">
+                                    <dt>Ngày lập</dt>
+                                    <dd>@order.NgayMua.ToString("dd/MM/yyyy")</dd>
+                                </div>
+                                <div class="invoice-details__info-row">
+                                    <dt>Phương thức</dt>
+                                    <dd>Thanh toán khi nhận hàng (COD)</dd>
+                                </div>
+                            </dl>
+                        </section>
+                    </div>
+
+                    <section class="invoice-details__products">
+                        <h2 class="invoice-details__section-title">Danh sách sản phẩm</h2>
+
+                        <div class="invoice-details__table-wrap">
+                            <table class="invoice-details__table">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Sản phẩm</th>
+                                        <th>Đơn giá</th>
+                                        <th>SL</th>
+                                        <th>Thành tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        var count = 1;
+                                    }
+                                    @foreach (var item in items)
+                                    {
+                                        var unitPrice = item.SanPham.Gia - item.SanPham.Gia * item.SanPham.KhuyenMai / 100;
+                                        var lineTotal = unitPrice * item.SoLuong;
+
+                                        <tr>
+                                            <td data-label="STT">@count</td>
+                                            <td data-label="Sản phẩm">
+                                                <div class="invoice-details__product">
+                                                    <a href="@Url.Action("Index", "Product", new { MaSP = item.SanPham.MaSP })" class="invoice-details__product-thumb no-print">
+                                                        <img src="~/assets/Images/SanPham/@item.SanPham.AnhDaiDien" alt="@item.SanPham.TenSP">
+                                                    </a>
+                                                    <div class="invoice-details__product-info">
+                                                        <a href="@Url.Action("Index", "Product", new { MaSP = item.SanPham.MaSP })" class="invoice-details__product-name no-print">@item.SanPham.TenSP</a>
+                                                        <span class="invoice-details__product-name print-only">@item.SanPham.TenSP</span>
+                                                        @if (item.SanPham.KhuyenMai > 0)
+                                                        {
+                                                            <span class="invoice-details__product-badge">-@item.SanPham.KhuyenMai%</span>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td data-label="Đơn giá">@string.Format("{0:c0}", unitPrice)</td>
+                                            <td data-label="SL">@item.SoLuong</td>
+                                            <td data-label="Thành tiền"><strong>@string.Format("{0:c0}", lineTotal)</strong></td>
+                                        </tr>
+                                        count++;
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <footer class="invoice-details__footer">
+                        <div class="invoice-details__note">
+                            <i class="fas fa-info-circle"></i>
+                            <p>Hóa đơn điện tử này có giá trị xác nhận đơn hàng. Vui lòng kiểm tra kỹ thông tin trước khi thanh toán.</p>
+                        </div>
+
+                        <div class="invoice-details__summary">
+                            <div class="invoice-details__summary-row">
+                                <span>Tạm tính</span>
+                                <strong>@string.Format("{0:c0}", subtotal)</strong>
+                            </div>
+                            <div class="invoice-details__summary-row">
+                                <span>Phí vận chuyển</span>
+                                <strong>@(order.PhiVanChuyen == 0 ? "Miễn phí" : string.Format("{0:c0}", order.PhiVanChuyen))</strong>
+                            </div>
+                            <div class="invoice-details__summary-row invoice-details__summary-row--total">
+                                <span>Tổng thanh toán</span>
+                                <strong>@string.Format("{0:c0}", order.ThanhTien)</strong>
+                            </div>
+                        </div>
+                    </footer>
+                </article>
+
+                <div class="invoice-details__actions no-print">
+                    <a href="@Url.Action("Index", "Home")" class="invoice-details__btn invoice-details__btn--outline">
+                        <i class="fas fa-shopping-bag"></i> Tiếp tục mua sắm
+                    </a>
+                    @if (backUserId.HasValue)
+                    {
+                        <a href="@Url.Action("Index", "Invoice", new { id = backUserId.Value })" class="invoice-details__btn invoice-details__btn--primary">
+                            <i class="fas fa-list-alt"></i> Xem tất cả đơn mua
+                        </a>
+                    }
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="cart-empty-state reveal">
+                <div class="cart-empty-state__icon"><i class="fas fa-file-invoice"></i></div>
+                <h2>Không tìm thấy hóa đơn</h2>
+                <p>Hóa đơn bạn tìm kiếm không tồn tại hoặc đã bị xóa.</p>
+                @if (backUserId.HasValue)
+                {
+                    <a href="@Url.Action("Index", "Invoice", new { id = backUserId.Value })" class="button btn-primary">Quay lại đơn mua</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Index", "Home")" class="button btn-primary">Về trang chủ</a>
+                }
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,8 @@
+@model IEnumerable<BeautyBox.Models.SanPham>
+
+<div class="home-product-grid">
+    @foreach (var product in Model.OrderByDescending(x => x.MaSP).Take(8))
+    {
+        @Html.Partial("_ProductCard", BeautyBox.Models.ProductCardViewModel.From(product))
+    }
+</div>

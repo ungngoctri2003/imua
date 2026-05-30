@@ -1,0 +1,44 @@
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<BeautyBox.Models.DanhMuc>
+
+<div class="banner reveal">
+    <div class="container">
+        <div class="banner__img">
+            <a href="">
+                <img src="~/assets/img/3430b21f-ffaa-4be4-840e-ffbe1d16283f.webp" alt="">
+            </a>
+        </div>
+        @Html.Partial("_ServiceBar")
+    </div>
+</div>
+<div class="widget">
+    <div class="container">
+        @{ Html.RenderAction("Menu", "Category"); }
+        <div class="widget__content" id="danhmuc">
+            @foreach (var item in Model)
+            {
+                <div>
+                    @foreach (var subitem in ViewBag.LoaiSP)
+                    {
+                        <div class="widget__category">
+                            <div class="title">
+                                <span><i class="fas fa-th"></i></span>
+                                <a href="@Url.Action("ProductType","Home",new { id = subitem.MaLoai })" class="title__link">@subitem.TenLoai</a>
+                            </div>
+                            <div class="wrapper">
+                                <div class="wrapper__item">
+                                    @{ Html.RenderAction("Product", "Category", new { id = subitem.MaLoai });}
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

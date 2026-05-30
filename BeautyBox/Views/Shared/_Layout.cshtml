@@ -1,0 +1,188 @@
+@{
+    var session = (BeautyBox.Common.UserLogin)Session[BeautyBox.Common.CommonConstants.USER_SESSION];
+}
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beauty Box | Mỹ phẩm, dưỡng da, trang điểm, skincare chính hãng — Mua là có quà</title>
+    <link rel="shortcut icon" href="~/assets/img/iconlogo.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+          integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+          crossorigin="anonymous" />
+    <link href="~/assets/fonts/material-icon/css/material-design-iconic-font.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/css/reset.css">
+    <link href="~/assets/css/AddCSS.css" rel="stylesheet" />
+    <link href="~/assets/css/Cart.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/css/premium-home.css">
+    <link rel="stylesheet" href="~/assets/css/beautybox-theme.css">
+    <link rel="stylesheet" href="~/assets/css/home-page.css?v=20260530c">
+    <link rel="stylesheet" href="~/assets/css/animations.css">
+    <link rel="stylesheet" href="~/assets/css/pages.css">
+    @if (session == null)
+    {
+        <link rel="stylesheet" href="~/assets/css/auth-modal.css">
+    }
+    @RenderSection("cssQTY", required: false)
+    @RenderSection("cssMessage", required: false)
+</head>
+
+<body class="bb-theme">
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+    <div class="toast-container" id="toastContainer"></div>
+    <button class="back-to-top" id="backToTop" aria-label="Lên đầu trang">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <div class="bb-promo-top" aria-label="Ưu đãi">
+        <div class="bb-promo-top__track">
+            <span><i class="fas fa-shipping-fast"></i> Freeship 15K mọi đơn hàng</span>
+            <span><i class="fas fa-gift"></i> Mua là có quà</span>
+            <span><i class="fas fa-store"></i> Mua online nhận tại cửa hàng gần nhất</span>
+            <span><i class="fas fa-shipping-fast"></i> Freeship 15K mọi đơn hàng</span>
+            <span><i class="fas fa-gift"></i> Mua là có quà</span>
+            <span><i class="fas fa-store"></i> Mua online nhận tại cửa hàng gần nhất</span>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <p class="header__top--hotline">
+                    Hotline: <a href="tel:0857898971">0857898971</a>
+                </p>
+                @if (session == null)
+                {
+                    <p class="header__top--regis">
+                        <a href="#" data-auth-open="register">Đăng ký</a>
+                    </p>
+                    <p class="header__top--login">
+                        <a href="#" data-auth-open="login">Đăng nhập</a>
+                    </p>
+                }
+                else
+                {
+                    <ul class="user__menu">
+                        <li class="user__item">
+                            @{
+                                string ImagePath = "~/assets/Images/AnhDaiDien/" + session.AnhDaiDien;
+                            }
+                            <img src="@Url.Content(ImagePath)" alt="@session.HoTen" class="user__img">
+                            <span class="user__name">@session.HoTen</span>
+                            <ul class="user__control">
+                                <li class="user__control--item"><a href="@Url.Action("ChangeInfor", "User", new { id = session.UserID })">Tài khoản của tôi</a></li>
+                                <li class="user__control--item"><a href="@Url.Action("ChangePassword", "User")">Đổi mật khẩu</a></li>
+                                <li class="user__control--item"><a href="@Url.Action("Index", "Invoice", new { id = session.UserID })">Đơn mua</a></li>
+                                <li class="user__control--item"><a href="@Url.Action("Logout", "User")">Đăng xuất</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                }
+            </div>
+        </div>
+
+        <div class="header__middle">
+            <div class="container">
+                <div class="header__middle--img">
+                    <a href="@Url.Action("Index","Home")" class="header__middle--logo">
+                        <img src="~/assets/img/logo.png" alt="Beauty Box">
+                    </a>
+                    <div class="header__brand-text">
+                        <strong>Beauty Box</strong>
+                        <span>Mỹ phẩm chính hãng</span>
+                    </div>
+                </div>
+                <nav class="header__quick-links" aria-label="Liên kết nhanh">
+                    <a href="@Url.Action("Contact", "Home")"><i class="fas fa-map-marker-alt"></i> Hệ thống cửa hàng</a>
+                    <a href="@Url.Action("ListNews", "Home")"><i class="fas fa-book-open"></i> Tạp chí làm đẹp</a>
+                </nav>
+                <div class="wrapper">
+                    <div class="header__middle--search">
+                        <div class="header__search--input">
+                            @using (Html.BeginForm("Index", "TimKiem"))
+                            {
+                                <input type="text" placeholder="Tìm kiếm sản phẩm, thương hiệu..." id="SearchString" name="SearchString" />
+                                <button type="submit" class="header__search--icon" onclick="return valid_search();">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            }
+                            <p class="search-error" id="searchError">Vui lòng nhập từ khóa tìm kiếm</p>
+                        </div>
+                    </div>
+                    <div class="header__middle--cart">
+                        <a href="@Url.Action("Index","Cart")" class="header__middle--cart--link">
+                            <span class="cart__icon">
+                                <i class="fas fa-shopping-basket"></i>
+                            </span>
+                            @{ Html.RenderAction("CartCount", "Home"); }
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="promo-bar" aria-label="Khuyến mãi">
+            <div class="promo-bar__track">
+                <span><i class="fas fa-gift"></i> Freeship 15K mọi đơn hàng</span>
+                <span><i class="fas fa-percent"></i> Mua là có quà — Sale off đến 50%</span>
+                <span><i class="fas fa-shield-alt"></i> Cam kết 100% hàng chính hãng</span>
+                <span><i class="fas fa-store"></i> Mua online, nhận tại cửa hàng gần nhất</span>
+                <span><i class="fas fa-gift"></i> Freeship 15K mọi đơn hàng</span>
+                <span><i class="fas fa-percent"></i> Mua là có quà — Sale off đến 50%</span>
+                <span><i class="fas fa-shield-alt"></i> Cam kết 100% hàng chính hãng</span>
+                <span><i class="fas fa-store"></i> Mua online, nhận tại cửa hàng gần nhất</span>
+            </div>
+        </div>
+
+        @{Html.RenderAction("DanhMuc", "Home");}
+    </header>
+
+    <main class="content">
+        @RenderBody()
+    </main>
+
+    <section class="bb-newsletter" aria-label="Đăng ký bản tin">
+        <div class="container">
+            <h3>Nhận bản tin làm đẹp</h3>
+            <p>Đừng bỏ lỡ hàng ngàn sản phẩm và chương trình siêu hấp dẫn từ Beauty Box</p>
+            <form class="bb-newsletter__form" action="@Url.Action("Contact", "Home")" method="get">
+                <input type="email" name="email" placeholder="Nhập email của bạn" aria-label="Email" />
+                <button type="submit">Theo dõi</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer__bottom">
+            <div class="container">
+                <p class="footer__copyright">&copy; 2026 beautybox.com.vn — Mỹ phẩm chính hãng. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    @if (session == null)
+    {
+        @Html.Partial("_AuthModals")
+    }
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/assets/js/jquery.elevateZoom-3.0.8.min.js"></script>
+    <script src="~/assets/js/main.js"></script>
+    <script src="~/assets/js/beautybox.js"></script>
+    <script src="~/assets/js/animations.js"></script>
+    @if (session == null)
+    {
+        <script src="~/assets/js/auth-modal.js"></script>
+    }
+    @RenderSection("addMoreCart", required: false)
+    @RenderSection("scriptUp", required: false)
+    @RenderSection("scriptDel", required: false)
+</body>
+</html>

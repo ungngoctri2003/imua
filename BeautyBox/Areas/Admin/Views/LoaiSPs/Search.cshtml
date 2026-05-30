@@ -1,0 +1,52 @@
+@model PagedList.IPagedList<BeautyBox.Models.LoaiSP>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_AdminPageStart")
+            @Html.Partial("_AdminListToolbar", null, new ViewDataDictionary {
+                { "ListTitle", "Danh sách loại sản phẩm" },
+                { "ListController", "LoaiSPs" },
+                { "SearchPlaceholder", "Tìm kiếm loại sản phẩm" },
+                { "ShowCreate", true }
+            })
+            <div id="search__result">Có <text>@ViewData["Count"]</text> loại sản phẩm phù hợp với từ khóa: <text>@ViewBag.CurrentFilter</text></div>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Mã loại sản phẩm</th>
+                            <th>Tên loại sản phẩm</th>
+                            <th>Tên danh mục</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.MaLoai</td>
+                                <td>@item.TenLoai</td>
+                                <td>@item.DanhMuc.TenDM</td>
+                                <td>
+                                    @Html.Partial("_AdminTableActions", null, new ViewDataDictionary {
+                                        { "DetailsUrl", Url.Action("Details", "LoaiSPs", new { id = item.MaLoai }) },
+                                        { "EditUrl", Url.Action("Edit", "LoaiSPs", new { id = item.MaLoai }) },
+                                        { "DeleteCssClass", "delBtnLSP" },
+                                        { "DeleteId", item.MaLoai }
+                                    })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="admin-pagination phan-trang">@Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = ViewBag.CurrentFilter }))</div>
+@Html.Partial("_AdminPageEnd")
+@section ajaxDel{
+    <script src="~/Areas/Admin/assets/js/delete.js"></script>
+}

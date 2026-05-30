@@ -1,0 +1,6 @@
+@model IEnumerable<BeautyBox.Models.SanPham>
+
+@foreach (var product in Model)
+{
+    @Html.Partial("_ProductCard", BeautyBox.Models.ProductCardViewModel.From(product))
+}

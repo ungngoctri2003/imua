@@ -1,0 +1,136 @@
+@model BeautyBox.Models.ThongKeViewModel
+@{
+    ViewBag.Title = "Thống kê";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var maxDoanhThu = Model.DoanhThuTheoThang.Any()
+        ? Model.DoanhThuTheoThang.Max(x => x.DoanhThu)
+        : 0m;
+    if (maxDoanhThu <= 0) { maxDoanhThu = 1; }
+}
+
+<div class="admin-dashboard admin-stats-page">
+    <div class="admin-stats-page__header">
+        <div>
+            <h1 class="admin-stats-page__title">Thống kê tổng quan</h1>
+            <p class="admin-stats-page__subtitle">Doanh thu, đơn hàng và hoạt động cửa hàng Beauty Box</p>
+        </div>
+        <div class="admin-stats-page__updated">
+            <i class="fas fa-sync-alt"></i> Cập nhật @DateTime.Now.ToString("dd/MM/yyyy HH:mm")
+        </div>
+    </div>
+
+    <div class="admin-stats admin-stats--6">
+        <div class="admin-stat-card admin-stat-card--static">
+            <div class="admin-stat-card__icon"><i class="fas fa-coins"></i></div>
+            <div class="admin-stat-card__value">@string.Format("{0:N0}", Model.TongDoanhThu)</div>
+            <div class="admin-stat-card__label">Tổng doanh thu (đ)</div>
+        </div>
+        <div class="admin-stat-card admin-stat-card--static">
+            <div class="admin-stat-card__icon"><i class="fas fa-chart-line"></i></div>
+            <div class="admin-stat-card__value">@string.Format("{0:N0}", Model.DoanhThuThangNay)</div>
+            <div class="admin-stat-card__label">Doanh thu tháng @DateTime.Now.ToString("MM/yyyy")</div>
+        </div>
+        <div class="admin-stat-card admin-stat-card--static">
+            <div class="admin-stat-card__icon"><i class="fas fa-file-invoice-dollar"></i></div>
+            <div class="admin-stat-card__value">@Model.TongHoaDon</div>
+            <div class="admin-stat-card__label">Tổng hóa đơn (@Model.HoaDonThangNay tháng này)</div>
+        </div>
+        <div class="admin-stat-card admin-stat-card--static">
+            <div class="admin-stat-card__icon"><i class="fas fa-shopping-cart"></i></div>
+            <div class="admin-stat-card__value">@Model.TongSanPhamDaBan</div>
+            <div class="admin-stat-card__label">Sản phẩm đã bán</div>
+        </div>
+        <div class="admin-stat-card admin-stat-card--static">
+            <div class="admin-stat-card__icon"><i class="fas fa-box-open"></i></div>
+            <div class="admin-stat-card__value">@Model.TongSanPham</div>
+            <div class="admin-stat-card__label">Sản phẩm (@Model.TongDanhMuc danh mục)</div>
+        </div>
+        <div class="admin-stat-card admin-stat-card--static">
+            <div class="admin-stat-card__icon"><i class="fas fa-users"></i></div>
+            <div class="admin-stat-card__value">@Model.TongNguoiDung</div>
+            <div class="admin-stat-card__label">Tài khoản (@Model.NguoiDungHoatDong đang hoạt động)</div>
+        </div>
+    </div>
+
+    <div class="admin-stats-grid-2">
+        <div class="admin-widget">
+            <div class="admin-widget__head">
+                <span><i class="fas fa-chart-bar"></i></span>
+                <h4>Doanh thu 6 tháng gần nhất</h4>
+            </div>
+            <div class="admin-widget__body">
+                <div class="admin-bar-chart">
+                    @foreach (var item in Model.DoanhThuTheoThang)
+                    {
+                        var pct = (double)(item.DoanhThu / maxDoanhThu * 100m);
+                        <div class="admin-bar-chart__row">
+                            <div class="admin-bar-chart__label">@item.Nhan</div>
+                            <div class="admin-bar-chart__track">
+                                <div class="admin-bar-chart__fill" style="width:@pct.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)%"></div>
+                            </div>
+                            <div class="admin-bar-chart__value">@string.Format("{0:N0}", item.DoanhThu) đ</div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-widget">
+            <div class="admin-widget__head">
+                <span><i class="fas fa-user-friends"></i></span>
+                <h4>Tài khoản theo nhóm</h4>
+            </div>
+            <div class="admin-widget__body admin-widget__body--compact">
+                @if (Model.NguoiDungTheoNhom.Any())
+                {
+                    <ul class="admin-stats-list">
+                        @foreach (var nhom in Model.NguoiDungTheoNhom)
+                        {
+                            <li class="admin-stats-list__item">
+                                <span class="admin-stats-list__name">@nhom.TenNhom</span>
+                                <span class="admin-stats-list__badge">@nhom.SoLuong</span>
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p class="admin-stats-empty">Chưa có dữ liệu tài khoản.</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="admin-widget">
+        <div class="admin-widget__head">
+            <span><i class="fas fa-table"></i></span>
+            <h4>Chi tiết đơn hàng theo tháng</h4>
+        </div>
+        <div class="admin-widget__body admin-widget__body--compact">
+            <div class="table-responsive">
+                <table class="table table-hover admin-stats-table">
+                    <thead>
+                        <tr>
+                            <th>Tháng</th>
+                            <th>Số hóa đơn</th>
+                            <th>Doanh thu</th>
+                            <th>Trung bình / đơn</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.DoanhThuTheoThang.AsEnumerable().Reverse())
+                        {
+                            var avg = item.SoHoaDon > 0 ? item.DoanhThu / item.SoHoaDon : 0;
+                            <tr>
+                                <td>@item.Nhan</td>
+                                <td>@item.SoHoaDon</td>
+                                <td class="text-primary font-weight-bold">@string.Format("{0:N0}", item.DoanhThu) đ</td>
+                                <td>@string.Format("{0:N0}", avg) đ</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

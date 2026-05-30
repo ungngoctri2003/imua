@@ -1,0 +1,28 @@
+@{
+    var detailsUrl = ViewData["DetailsUrl"] as string;
+    var editUrl = ViewData["EditUrl"] as string;
+    var deleteCssClass = ViewData["DeleteCssClass"] as string ?? "";
+    var deleteId = ViewData["DeleteId"];
+    var showEdit = ViewData["ShowEdit"] as bool? ?? true;
+    var showDelete = ViewData["ShowDelete"] as bool? ?? true;
+}
+<div class="admin-table-actions">
+    @if (!string.IsNullOrEmpty(detailsUrl))
+    {
+        <a class="btn btn-outline-primary btn-icon" href="@detailsUrl" title="Xem chi tiết">
+            <i class="ti-eye"></i>
+        </a>
+    }
+    @if (showEdit && !string.IsNullOrEmpty(editUrl))
+    {
+        <a class="btn btn-outline-primary btn-icon" href="@editUrl" title="Chỉnh sửa">
+            <i class="ti-pencil-alt"></i>
+        </a>
+    }
+    @if (showDelete && !string.IsNullOrEmpty(deleteCssClass) && deleteId != null)
+    {
+        <a class="btn btn-outline-primary btn-icon @deleteCssClass" href="#" data-id="@deleteId" title="Xóa">
+            <i class="ti-trash"></i>
+        </a>
+    }
+</div>

@@ -1,0 +1,6 @@
+@model IEnumerable<BeautyBox.Models.SanPham>
+
+@foreach (var item in Model.Where(p => p.KhuyenMai != 0).Take(4))
+{
+    @Html.Partial("_ProductCard", BeautyBox.Models.ProductCardViewModel.From(item))
+}

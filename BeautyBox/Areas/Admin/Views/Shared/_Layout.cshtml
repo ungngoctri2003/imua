@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Beauty Box Admin - Mỹ Phẩm Online</title>
+    <link rel="stylesheet" href="~/Areas/Admin/assets/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="~/Areas/Admin/assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="~/Areas/Admin/assets/css/vertical-layout-light/style.css">
+    <link rel="shortcut icon" href="~/assets/img/iconlogo.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+          integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+          crossorigin="anonymous" />
+    <link href="~/assets/fonts/material-icon/css/material-design-iconic-font.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/assets/css/admin-tokens.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/assets/css/admin.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/assets/css/admin-dashboard.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/assets/css/admin-premium.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/assets/css/admin-shell.css" rel="stylesheet" />
+    @RenderSection("cssType", required: false)
+    @RenderSection("cssError", required: false)
+    @RenderSection("cssMessage", required: false)
+</head>
+
+<body class="admin-app">
+    <div class="container-scroller">
+        <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo" href="@Url.Action("Index", "TrangChu")"><img src="~/assets/img/logo.png" alt="" /></a>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
+                <div class="admin-topbar__left">
+                    <button class="navbar-toggler align-self-center" type="button" data-toggle="minimize" aria-label="Thu gọn menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <p class="admin-topbar__title">Beauty Box <span>Admin</span></p>
+                </div>
+                <ul class="navbar-nav navbar-nav-right admin-topbar__right ml-auto">
+                    <li class="nav-item d-none d-md-flex align-items-center">
+                        <a class="admin-topbar__shop" href="@Url.Action("Index", "Home", new { area = "" })" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Xem cửa hàng
+                        </a>
+                    </li>
+                    <li class="nav-item nav-profile dropdown">
+                        @{
+                            var session = (BeautyBox.Common.UserLogin)Session[BeautyBox.Common.CommonConstants.USER_SESSION];
+                        }
+                        @if (session != null)
+                        {
+                            <a class="nav-link dropdown-toggle admin-nav-profile" href="#" data-toggle="dropdown" id="profileDropdown">
+                                <img src="~/assets/Images/AnhDaiDien/@session.AnhDaiDien" alt="profile" class="admin-nav-profile__avatar" />
+                                <span class="admin-nav-profile__name d-none d-md-inline">@session.HoTen</span>
+                                <i class="fas fa-chevron-down d-none d-md-inline" style="font-size:0.65rem;margin-left:0.35rem;color:#5A6B60;"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                                <a class="dropdown-item" href="@Url.Action("ChangeInfor", "NguoiDungs", new { id = session.UserID})">
+                                    <i class="fas fa-user-circle"></i> Thông tin tài khoản
+                                </a>
+                                <a class="dropdown-item" href="@Url.Action("ChangePassword", "NguoiDungs")">
+                                    <i class="fas fa-key"></i> Đổi mật khẩu
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="@Url.Action("Logout", "NguoiDungs")">
+                                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                                </a>
+                            </div>
+                        }
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container-fluid page-body-wrapper">
+            <nav class="sidebar sidebar-offcanvas d-flex flex-column" id="sidebar">
+                <a class="admin-sidebar-logo" href="@Url.Action("Index", "TrangChu")">
+                    <img src="~/assets/img/logo.png" alt="Beauty Box" />
+                    <span class="admin-sidebar-logo__text">
+                        <strong>Beauty Box</strong>
+                        <small>Quản trị hệ thống</small>
+                    </span>
+                </a>
+                <ul class="nav flex-column flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "TrangChu")">
+                            <i class="fas fa-home menu-icon"></i>
+                            <span class="menu-title">Trang chủ</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "ThongKe", new { area = "Admin" })">
+                            <i class="fas fa-chart-bar menu-icon"></i>
+                            <span class="menu-title">Thống kê</span>
+                        </a>
+                    </li>
+                    <li class="nav-category">Cửa hàng</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "DanhMucs")">
+                            <i class="fas fa-th-large menu-icon"></i>
+                            <span class="menu-title">Danh mục</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "LoaiSPs")">
+                            <i class="fas fa-tags menu-icon"></i>
+                            <span class="menu-title">Loại sản phẩm</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "SanPhams")">
+                            <i class="fas fa-box-open menu-icon"></i>
+                            <span class="menu-title">Sản phẩm</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "TinTucs")">
+                            <i class="fas fa-newspaper menu-icon"></i>
+                            <span class="menu-title">Tin tức</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "HoaDons")">
+                            <i class="fas fa-file-invoice menu-icon"></i>
+                            <span class="menu-title">Hóa đơn</span>
+                        </a>
+                    </li>
+                    <li class="nav-category">Hệ thống</li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+                            <i class="fas fa-users-cog menu-icon"></i>
+                            <span class="menu-title">Tài khoản & quyền</span>
+                            <i class="fas fa-chevron-down menu-arrow admin-menu-arrow ml-auto"></i>
+                        </a>
+                        <div class="collapse" id="auth">
+                            <ul class="nav flex-column sub-menu admin-sub-menu">
+                                <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","LoaiTaiKhoans")">Loại tài khoản</a></li>
+                                <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","NguoiDungs")">Tài khoản</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+                <div class="admin-sidebar-footer">
+                    <a href="@Url.Action("Index", "Home", new { area = "" })" target="_blank">
+                        <i class="fas fa-store"></i> Quay về website bán hàng
+                    </a>
+                </div>
+            </nav>
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    @RenderBody()
+                </div>
+                <footer class="footer">
+                    <div class="d-sm-flex justify-content-between align-items-center w-100">
+                        <span class="text-muted">&copy; @DateTime.Now.Year Beauty Box — Mỹ phẩm online chính hãng</span>
+                        <span class="text-muted">Hệ thống quản trị <i class="fas fa-heart" style="color:#F173AC;"></i></span>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Areas/Admin/assets/js/template.js"></script>
+    <script src="~/Areas/Admin/assets/js/admin-ui.js"></script>
+    <script>
+        function valid_search() {
+            var search = document.getElementById('SearchString');
+            if (!search || search.value.trim() !== "") return true;
+            alert("Vui lòng nhập từ khóa tìm kiếm!");
+            search.focus();
+            return false;
+        }
+        (function () {
+            var tx = document.getElementsByTagName('textarea');
+            for (var i = 0; i < tx.length; i++) {
+                tx[i].style.height = tx[i].scrollHeight + 'px';
+                tx[i].style.overflowY = 'hidden';
+                tx[i].style.width = '100%';
+                tx[i].style.outline = 'none';
+                tx[i].style.border = '1px solid #DDEAE2';
+                tx[i].style.borderRadius = '8px';
+                tx[i].style.padding = '10px 12px';
+                tx[i].style.fontSize = '0.9rem';
+                tx[i].addEventListener('input', function () {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
+            }
+        })();
+    </script>
+    <script src="~/Areas/Admin/assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="~/Areas/Admin/assets/js/plugin/ckfinder/ckfinder.js"></script>
+    <script src="~/Areas/Admin/assets/js/plugin/ckeditor/ckeditor.js"></script>
+    @RenderSection("footer", required: false)
+    @RenderSection("ajaxDel", required: false)
+    @RenderSection("ajaxDel2", required: false)
+</body>
+
+</html>

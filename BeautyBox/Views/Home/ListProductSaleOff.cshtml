@@ -1,0 +1,45 @@
+@model PagedList.IPagedList<BeautyBox.Models.SanPham>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "ListProductSaleOff";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+<div class="banner">
+    <div class="container">
+        <div class="banner__img">
+            <a href="">
+                <img src="~/assets/img/af56c695-595d-4096-b15e-98d10356c70e.webp" alt="">
+            </a>
+        </div>
+        @Html.Partial("_ServiceBar")
+    </div>
+</div>
+<div class="widget">
+    <div class="container">
+        @{ Html.RenderAction("Menu", "Category"); }
+        <div class="widget__content">
+            <div>
+                <div class="widget__category" id="loaisp">
+                    <div class="title">
+                        <span><i class="fas fa-th"></i></span>
+                        <h4>sale off</h4>
+                    </div>
+                    <div class="wrapper">
+                        <div class="wrapper__item product-grid">
+                            @foreach (var product in Model)
+                            {
+                                @Html.Partial("_ProductCard", BeautyBox.Models.ProductCardViewModel.From(product))
+                            }
+                        </div>
+                        <div class="phan-trang">@Html.PagedListPager(Model, page => Url.Action("ListProductSaleOff", new { page }))</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+@model PagedList.IPagedList<BeautyBox.Models.Role>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_AdminPageStart")
+            @Html.Partial("_AdminListToolbar", null, new ViewDataDictionary {
+                { "ListTitle", "Danh sách vai trò" },
+                { "ListController", "VaiTros" },
+                { "SearchPlaceholder", "Tìm kiếm vai trò" },
+                { "ShowCreate", true }
+            })
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Mã vai trò</th>
+                            <th>Tên vai trò</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.RoleID</td>
+                                <td>@item.Name</td>
+                                <td>
+                                    @Html.Partial("_AdminTableActions", null, new ViewDataDictionary {
+                                        { "DetailsUrl", Url.Action("Details", "VaiTros", new { id = item.RoleID }) },
+                                        { "EditUrl", Url.Action("Edit", "VaiTros", new { id = item.RoleID }) },
+                                        { "DeleteCssClass", "delBtnVT" },
+                                        { "DeleteId", item.RoleID }
+                                    })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="admin-pagination phan-trang">@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))</div>
+@Html.Partial("_AdminPageEnd")
+@section ajaxDel2{
+    <script src="~/Areas/Admin/assets/js/delete2.js"></script>
+}

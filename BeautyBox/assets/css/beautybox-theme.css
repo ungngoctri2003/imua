@@ -1,0 +1,489 @@
+/* Beauty Box — theme giao diện khách hàng */
+
+:root {
+  --color-primary: #e91e8c;
+  --color-primary-dark: #c2186f;
+  --color-primary-light: #f8bbd0;
+  --color-accent: #00bcd4;
+  --color-primary-rgb: 233, 30, 140;
+  --font-heading: "Be Vietnam Pro", "Segoe UI", sans-serif;
+  --font-body: "Be Vietnam Pro", "Segoe UI", sans-serif;
+}
+
+body.bb-theme {
+  background: #fafafa;
+}
+
+/* Top promo strip */
+.bb-promo-top {
+  background: #fff0f6;
+  border-bottom: 0.1rem solid #fce4ec;
+  overflow: hidden;
+  height: 3.2rem;
+}
+
+.bb-promo-top__track {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: max-content;
+  animation: bbPromoMarquee 28s linear infinite;
+}
+
+.bb-promo-top__track span {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--color-primary-dark);
+  white-space: nowrap;
+  padding: 0 2.4rem;
+}
+
+.bb-promo-top__track span i {
+  margin-right: 0.6rem;
+  color: var(--color-primary);
+}
+
+@keyframes bbPromoMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Header */
+.bb-theme .header__top {
+  background: #fff;
+  border-bottom: 0.1rem solid var(--color-border);
+  height: 3.8rem;
+}
+
+.bb-theme .header__top--hotline,
+.bb-theme .header__top--regis,
+.bb-theme .header__top--login,
+.bb-theme .user__name {
+  color: var(--color-text);
+  line-height: 3.8rem;
+}
+
+.bb-theme .header__top--hotline > a {
+  color: var(--color-primary);
+}
+
+.bb-theme .header__top--regis a,
+.bb-theme .header__top--login a {
+  color: var(--color-text);
+}
+
+.bb-theme .header__top--regis a:hover,
+.bb-theme .header__top--login a:hover {
+  color: var(--color-primary);
+}
+
+.bb-theme .header__top--hotline::before,
+.bb-theme .header__top--regis::before,
+.bb-theme .header__top--login::before {
+  background: var(--color-border);
+}
+
+.bb-theme .header__middle {
+  padding: 1.2rem 0;
+}
+
+.bb-theme .header__brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.bb-theme .header__brand-text strong {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: -0.02em;
+}
+
+.bb-theme .header__brand-text span {
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+.bb-theme .header__quick-links {
+  display: flex;
+  gap: 1.6rem;
+  margin-left: auto;
+  margin-right: 1rem;
+  font-size: 1.2rem;
+}
+
+.bb-theme .header__quick-links a {
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.bb-theme .header__quick-links a:hover {
+  color: var(--color-primary);
+}
+
+.bb-theme .promo-bar {
+  background: var(--color-primary);
+  height: 3.2rem;
+}
+
+.bb-theme .nav__menu > .nav__item:first-child > .nav__link {
+  color: var(--color-primary);
+  background: rgba(var(--color-primary-rgb), 0.06);
+}
+
+.bb-theme .nav__menu > .nav__item--sale > .nav__link {
+  color: #fff;
+  background: var(--color-primary);
+}
+
+/* Section titles */
+.bb-theme .title,
+.bb-theme .section-title {
+  border-top: none;
+  border-bottom: none;
+  background: transparent;
+  min-height: auto;
+  padding: 2.4rem 2rem 1.2rem;
+}
+
+.bb-theme .title > h4,
+.bb-theme .section-title > h4,
+.bb-theme .section-title__inner > h4 {
+  font-family: var(--font-body);
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: none;
+  color: var(--color-text);
+  letter-spacing: 0;
+}
+
+.bb-theme .category__nav a h2 {
+  background: var(--color-primary);
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+
+/* Product cards */
+.bb-theme .product {
+  border-radius: var(--radius-md);
+  border: none;
+  box-shadow: 0 0.2rem 1.2rem rgba(0, 0, 0, 0.06);
+}
+
+.bb-theme .badge-sale {
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+}
+
+.bb-theme .product__price > ins {
+  color: var(--color-primary);
+}
+
+/* Hero slider */
+.bb-hero__slider {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.bb-hero__slides {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.bb-hero__slide {
+  flex: 0 0 100%;
+  min-width: 100%;
+}
+
+.bb-hero__slide img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 1200 / 420;
+  object-fit: cover;
+}
+
+.bb-hero__dots {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.6rem;
+  z-index: 2;
+}
+
+.bb-hero__dot {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  padding: 0;
+}
+
+.bb-hero__dot.is-active {
+  background: #fff;
+  width: 2.4rem;
+  border-radius: var(--radius-full);
+}
+
+/* Brand marquee */
+.bb-brands {
+  padding: 1.6rem 0;
+  background: #fff;
+  border-top: 0.1rem solid var(--color-border);
+  border-bottom: 0.1rem solid var(--color-border);
+  overflow: hidden;
+}
+
+.bb-brands__track {
+  display: flex;
+  gap: 3rem;
+  width: max-content;
+  animation: bbBrandScroll 40s linear infinite;
+  align-items: center;
+}
+
+.bb-brands__item {
+  flex-shrink: 0;
+  padding: 0.8rem 2rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  border: 0.1rem solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: #fff;
+}
+
+@keyframes bbBrandScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Flash sale */
+.bb-flash {
+  background: linear-gradient(135deg, #fce4ec 0%, #fff 50%);
+  padding: 2.4rem 0;
+  margin: 2rem 0;
+}
+
+.bb-flash__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.6rem;
+}
+
+.bb-flash__head h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.bb-flash__head a {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+/* Promo banners */
+.bb-promo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  padding: 2rem 0;
+}
+
+.bb-promo-grid a {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: block;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition);
+}
+
+.bb-promo-grid a:hover {
+  transform: translateY(-0.3rem);
+}
+
+.bb-promo-grid img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* Trend pills */
+.bb-trends {
+  padding: 2rem 0 1rem;
+}
+
+.bb-trends__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  justify-content: center;
+  padding: 0 2rem 2rem;
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+.bb-trends__pill {
+  padding: 0.8rem 1.8rem;
+  border-radius: var(--radius-full);
+  border: 0.1rem solid var(--color-border);
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--color-text);
+  background: #fff;
+  transition: all var(--transition);
+}
+
+.bb-trends__pill:hover,
+.bb-trends__pill.is-active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+/* Newsletter */
+.bb-newsletter {
+  background: var(--color-primary);
+  padding: 3.2rem 0;
+  margin-top: 4rem;
+}
+
+.bb-newsletter .container {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.2rem;
+}
+
+.bb-newsletter h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.bb-newsletter p {
+  font-size: 1.4rem;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 48rem;
+}
+
+.bb-newsletter__form {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  max-width: 44rem;
+}
+
+.bb-newsletter__form input {
+  flex: 1;
+  min-width: 20rem;
+  height: 4.4rem;
+  border-radius: var(--radius-full);
+  border: none;
+  padding: 0 1.6rem;
+  font-size: 1.4rem;
+}
+
+.bb-newsletter__form button {
+  height: 4.4rem;
+  padding: 0 2.4rem;
+  border-radius: var(--radius-full);
+  border: 0.2rem solid #fff;
+  background: transparent;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.4rem;
+  transition: all var(--transition);
+}
+
+.bb-newsletter__form button:hover {
+  background: #fff;
+  color: var(--color-primary);
+}
+
+/* Footer */
+.bb-theme .footer {
+  background: #fff;
+  color: var(--color-text-muted);
+  padding: 1.2rem 0;
+}
+
+.bb-theme .footer__item h4 {
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  text-transform: uppercase;
+}
+
+.bb-theme .footer__item p,
+.bb-theme .footer__item a {
+  color: var(--color-text-muted);
+  font-size: 1.3rem;
+  line-height: 2.2rem;
+}
+
+.bb-theme .footer__item a:hover {
+  color: var(--color-primary);
+}
+
+.bb-theme .footer__brand {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.bb-theme .footer__bottom {
+  border-top: none;
+  padding: 0;
+}
+
+.bb-theme .footer__copyright {
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.bb-theme .footer__social a {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.bb-theme .footer__social a:hover {
+  background: var(--color-primary);
+}
+
+@media (max-width: 992px) {
+  .bb-theme .header__quick-links {
+    display: none;
+  }
+
+  .bb-promo-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .bb-theme .header__brand-text {
+    display: none;
+  }
+
+  .bb-theme .header__middle--sologan {
+    display: none;
+  }
+}

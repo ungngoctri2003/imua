@@ -1,0 +1,15 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Không có quyền truy cập";
+}
+
+@Html.Partial("_AdminPageStart")
+<div class="admin-error-page" style="max-width:480px;margin:2rem auto;text-align:center;">
+            <div class="admin-error-page__icon"><i class="ti-lock"></i></div>
+            <h3 class="card-title">Không có quyền truy cập</h3>
+            <p class="admin-alert admin-alert--error">Bạn không được thực hiện chức năng này.</p>
+            <a href="@Url.Action("Index", "TrangChu")" class="btn btn-primary mt-3">
+                <i class="ti-home"></i> Về trang chủ admin
+            </a>
+</div>
+@Html.Partial("_AdminPageEnd")

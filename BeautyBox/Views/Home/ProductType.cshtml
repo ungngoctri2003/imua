@@ -1,0 +1,43 @@
+@model IEnumerable<BeautyBox.Models.LoaiSP>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var products = ViewBag.SanPham as List<BeautyBox.Models.SanPham> ?? new List<BeautyBox.Models.SanPham>();
+}
+
+<div class="banner">
+    <div class="container">
+        <div class="banner__img">
+            <a href="">
+                <img src="~/assets/img/3430b21f-ffaa-4be4-840e-ffbe1d16283f.webp" alt="">
+            </a>
+        </div>
+        @Html.Partial("_ServiceBar")
+    </div>
+</div>
+<div class="widget">
+    <div class="container">
+        @{ Html.RenderAction("Menu", "Category"); }
+        <div class="widget__content">
+            <div>
+                @foreach (var subitem in Model)
+                {
+                    <div class="widget__category" id="loaisp">
+                        <div class="title">
+                            <span><i class="fas fa-th"></i></span>
+                            <h4>@subitem.TenLoai</h4>
+                        </div>
+                        <div class="wrapper">
+                            <div class="wrapper__item product-grid">
+                                @foreach (var product in products)
+                                {
+                                    @Html.Partial("_ProductCard", BeautyBox.Models.ProductCardViewModel.From(product))
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
